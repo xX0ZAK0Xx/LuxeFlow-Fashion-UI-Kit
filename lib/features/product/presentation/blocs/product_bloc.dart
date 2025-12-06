@@ -1,0 +1,142 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:luxeflow_fashion_ui_kit/core/usecases/usecase.dart';
+import '../../domain/entities/category_entity.dart';
+import '../../domain/entities/product_entity.dart';
+import '../../domain/usecases/get_products.dart';
+
+// Events
+abstract class ProductEvent extends Equatable {
+  const ProductEvent();
+  @override
+  List<Object?> get props => [];
+}
+
+class LoadDashboard extends ProductEvent {}
+
+class LoadProductsByCategory extends ProductEvent {
+  final String categoryId;
+  const LoadProductsByCategory(this.categoryId);
+  @override
+  List<Object> get props => [categoryId];
+}
+
+class SearchProducts extends ProductEvent {
+  final String query;
+  const SearchProducts(this.query);
+  @override
+  List<Object> get props => [query];
+}
+
+// States
+abstract class ProductState extends Equatable {
+  const ProductState();
+  @override
+  List<Object?> get props => [];
+}
+
+class ProductInitial extends ProductState {}
+
+class ProductLoading extends ProductState {}
+
+class DashboardLoaded extends ProductState {
+  final List<CategoryEntity> categories;
+  final List<ProductEntity> featuredProducts;
+
+  const DashboardLoaded({required this.categories, required this.featuredProducts});
+
+  @override
+  List<Object> get props => [categories, featuredProducts];
+}
+
+class ProductsLoaded extends ProductState {
+  final List<ProductEntity> products;
+  const ProductsLoaded(this.products);
+  @override
+  List<Object> get props => [products];
+}
+
+class ProductError extends ProductState {
+  final String message;
+  const ProductError(this.message);
+  @override
+  List<Object> get props => [message];
+}
+
+// Bloc
+class ProductBloc extends Bloc<ProductEvent, ProductState> {
+  final GetProducts getProducts;
+  final GetCategories getCategories;
+
+  ProductBloc({
+    required this.getProducts,
+    required this.getCategories,
+  }) : super(ProductInitial()) {
+    on<LoadDashboard>(_onLoadDashboard);
+    on<LoadProductsByCategory>(_onLoadProductsByCategory);
+    on<SearchProducts>(_onSearchProducts);
+  }
+
+  Future<void> _onLoadDashboard(
+    LoadDashboard event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(ProductLoading());
+    // Run both requests in parallel
+    final results = await Future.wait([
+      getCategories(NoParams()),
+      getProducts(const GetProductsParams()),
+    ]);
+
+    final categoriesResult = results[0] as dynamic; // casting for ease, better pattern exists but keeping simple
+    final productsResult = results[1] as dynamic;
+
+    // Manual unpacking because of parallel execution return type
+    List<CategoryEntity>? categories;
+    List<ProductEntity>? products;
+    String? error;
+
+    categoriesResult.fold(
+      (failure) => error = failure.message,
+      (data) => categories = data,
+    );
+
+    productsResult.fold(
+      (failure) => error = failure.message, // Priority to latest error
+      (data) => products = data,
+    );
+
+    if (error != null) {
+      emit(ProductError(error!));
+    } else {
+      emit(DashboardLoaded(
+        categories: categories!,
+        featuredProducts: products!,
+      ));
+    }
+  }
+
+  Future<void> _onLoadProductsByCategory(
+    LoadProductsByCategory event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(ProductLoading());
+    final result = await getProducts(GetProductsParams(categoryId: event.categoryId));
+    result.fold(
+      (failure) => emit(ProductError(failure.message)),
+      (products) => emit(ProductsLoaded(products)),
+    );
+  }
+
+  Future<void> _onSearchProducts(
+    SearchProducts event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(ProductLoading());
+    final result = await getProducts(GetProductsParams(searchQuery: event.query));
+    result.fold(
+      (failure) => emit(ProductError(failure.message)),
+      (products) => emit(ProductsLoaded(products)),
+    );
+  }
+}

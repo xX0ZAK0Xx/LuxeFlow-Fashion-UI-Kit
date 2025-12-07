@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 
 class PaymentScreen extends StatefulWidget {
   final VoidCallback onPaymentSuccess;
@@ -12,7 +14,19 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  int _selectedPaymentMethod = 0; // 0: Card, 1: PayPal
+  final ValueNotifier<int> _selectedPaymentMethodNotifier = ValueNotifier(0); // 0: Card, 1: PayPal
+  final _cardNumberController = TextEditingController();
+  final _expiryController = TextEditingController();
+  final _cvvController = TextEditingController();
+
+  @override
+  void dispose() {
+    _selectedPaymentMethodNotifier.dispose();
+    _cardNumberController.dispose();
+    _expiryController.dispose();
+    _cvvController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,46 +48,51 @@ class _PaymentScreenState extends State<PaymentScreen> {
           const SizedBox(height: 32),
           
           // Card Details Form (Only if Card is selected)
-          if (_selectedPaymentMethod == 0) ...[
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Card Number',
-                hintText: '0000 0000 0000 0000',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.numbers),
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Expiry Date',
-                      hintText: 'MM/YY',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.calendar_today),
+          // Card Details Form (Only if Card is selected)
+          ValueListenableBuilder<int>(
+            valueListenable: _selectedPaymentMethodNotifier,
+            builder: (context, selectedPaymentMethod, _) {
+              if (selectedPaymentMethod == 0) {
+                return Column(
+                  children: [
+                    CustomTextField(
+                      controller: _cardNumberController,
+                      label: 'Card Number',
+                      hintText: '0000 0000 0000 0000',
+                      prefixIcon: PhosphorIcons.creditCard(),
+                      keyboardType: TextInputType.number,
                     ),
-                    keyboardType: TextInputType.datetime,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'CVV',
-                      hintText: '123',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.lock_outline),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            controller: _expiryController,
+                            label: 'Expiry Date',
+                            hintText: 'MM/YY',
+                            prefixIcon: PhosphorIcons.calendarBlank(),
+                            keyboardType: TextInputType.datetime,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: CustomTextField(
+                            controller: _cvvController,
+                            label: 'CVV',
+                            hintText: '123',
+                            prefixIcon: PhosphorIcons.lockKey(),
+                            keyboardType: TextInputType.number,
+                            isPassword: true,
+                          ),
+                        ),
+                      ],
                     ),
-                    keyboardType: TextInputType.number,
-                    obscureText: true,
-                  ),
-                ),
-              ],
-            ),
-          ],
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
 
           const SizedBox(height: 32),
           ElevatedButton(
@@ -91,26 +110,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget _buildPaymentOption(int value, String title, IconData icon) {
-    return RadioListTile<int>(
-      value: value,
-      groupValue: _selectedPaymentMethod,
-      onChanged: (int? newValue) {
-        setState(() {
-          _selectedPaymentMethod = newValue!;
-        });
+    return ValueListenableBuilder<int>(
+      valueListenable: _selectedPaymentMethodNotifier,
+      builder: (context, selectedPaymentMethod, _) {
+        return RadioListTile<int>(
+          value: value,
+          groupValue: selectedPaymentMethod,
+          onChanged: (int? newValue) {
+            _selectedPaymentMethodNotifier.value = newValue!;
+          },
+          title: Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: 16),
+              Text(title),
+            ],
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Colors.grey.shade300),
+          ),
+          tileColor: Theme.of(context).cardColor,
+        );
       },
-      title: Row(
-        children: [
-          Icon(icon),
-          const SizedBox(width: 16),
-          Text(title),
-        ],
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.grey.shade300),
-      ),
-      tileColor: Theme.of(context).cardColor,
     );
   }
 }

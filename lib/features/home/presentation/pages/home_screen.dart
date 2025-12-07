@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/product_card.dart';
 import '../../../../features/product/presentation/blocs/product_bloc.dart';
 import '../../../notification/presentation/pages/notification_screen.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../core/widgets/custom_bottom_nav.dart';
 import '../../../product/presentation/pages/search_screen.dart';
 import '../../../cart/presentation/pages/cart_screen.dart';
@@ -14,6 +15,7 @@ import '../../../wishlist/presentation/blocs/wishlist_bloc.dart';
 import '../../../wishlist/presentation/pages/wishlist_screen.dart';
 import '../widgets/hero_banner.dart';
 import '../widgets/category_pills.dart';
+import 'offers_screen.dart';
 import '../widgets/section_header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,7 +26,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier(0);
+
+  @override
+  void dispose() {
+    _currentIndexNotifier.dispose();
+    super.dispose();
+  }
 
   final List<Widget> _screens = [
     const HomeFeed(),
@@ -37,9 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true, // Allow content to go behind status bar
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: ValueListenableBuilder<int>(
+        valueListenable: _currentIndexNotifier,
+        builder: (context, currentIndex, _) {
+          return IndexedStack(
+            index: currentIndex,
+            children: _screens,
+          );
+        },
       ),
       bottomNavigationBar: BlocBuilder<CartBloc, CartState>(
         builder: (context, cartState) {
@@ -47,16 +60,19 @@ class _HomeScreenState extends State<HomeScreen> {
           if (cartState is CartLoaded) {
             cartCount = cartState.items.fold(0, (sum, item) => sum + item.quantity);
           }
-          return CustomBottomNav(
-            currentIndex: _currentIndex,
-            cartCount: cartCount,
-            onTap: (index) {
-              if (index == 0) {
-                 context.read<ProductBloc>().add(LoadDashboard());
-              }
-              setState(() {
-                _currentIndex = index;
-              });
+          return ValueListenableBuilder<int>(
+            valueListenable: _currentIndexNotifier,
+            builder: (context, currentIndex, _) {
+              return CustomBottomNav(
+                currentIndex: currentIndex,
+                cartCount: cartCount,
+                onTap: (index) {
+                  if (index == 0) {
+                     context.read<ProductBloc>().add(LoadDashboard());
+                  }
+                  _currentIndexNotifier.value = index;
+                },
+              );
             },
           );
         },
@@ -83,7 +99,7 @@ class HomeFeed extends StatelessWidget {
         body: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
             if (state is ProductLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return _buildShimmerLoading(context);
             } else if (state is DashboardLoaded) {
               return CustomScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -145,11 +161,68 @@ class HomeFeed extends StatelessWidget {
                     ],
                   ),
                   
-                  // Categories
+                  // Offers & Categories
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 24, bottom: 32),
-                      child: CategoryPills(categories: state.categories),
+                    child: Column(
+                      children: [
+                        // Flash Sale Banner Link
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const OffersScreen()),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.black, Colors.grey[800]!],
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'FLASH SALE',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        letterSpacing: 2,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      'Up to 50% Off  •  Ends Soon',
+                                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(Icons.arrow_forward, size: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        
+                        // Categories
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16, bottom: 32),
+                          child: CategoryPills(categories: state.categories),
+                        ),
+                      ],
                     ),
                   ),
                   
@@ -169,12 +242,14 @@ class HomeFeed extends StatelessWidget {
                         itemCount: state.featuredProducts.length,
                         itemBuilder: (context, index) {
                           final product = state.featuredProducts[index];
+                          final heroTag = 'home_new_${product.id}';
                           return Container(
                             width: 180, // Slightly wider
                             margin: const EdgeInsets.only(right: 16),
                             child: ProductCard(
                               product: product,
-                              onTap: () => navigateToProduct(context, product),
+                              heroTag: heroTag,
+                              onTap: () => navigateToProduct(context, product, heroTag: heroTag),
                               onAddToCart: () => addToCart(context, product),
                             ),
                           );
@@ -202,9 +277,12 @@ class HomeFeed extends StatelessWidget {
                         (context, index) {
                            // Show random products to simulate Best Sellers
                            final product = state.featuredProducts[index % state.featuredProducts.length];
+                           final heroTag = 'best_seller_${product.id}_$index';
+                           
                            return ProductCard(
                             product: product,
-                            onTap: () => navigateToProduct(context, product),
+                            heroTag: heroTag,
+                            onTap: () => navigateToProduct(context, product, heroTag: heroTag),
                             onAddToCart: () => addToCart(context, product),
                           );
                         },
@@ -223,10 +301,10 @@ class HomeFeed extends StatelessWidget {
     );
   }
 
-  void navigateToProduct(BuildContext context, dynamic product) {
+  void navigateToProduct(BuildContext context, dynamic product, {String? heroTag}) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: product)),
+      MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: product, heroTag: heroTag)),
     );
   }
 
@@ -237,6 +315,87 @@ class HomeFeed extends StatelessWidget {
         content: Text('${product.name} added to cart'),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+
+  Widget _buildShimmerLoading(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Banner Shimmer
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: 400,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 24),
+          
+          // Categories Shimmer
+          SizedBox(
+            height: 40,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: 5,
+              itemBuilder: (_, __) => Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  width: 80,
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+          
+          // Section Header Shimmer
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Shimmer.fromColors(
+               baseColor: Colors.grey[300]!,
+               highlightColor: Colors.grey[100]!,
+               child: Container(height: 24, width: 150, color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 16),
+          
+          // Horizontal List Shimmer
+          SizedBox(
+            height: 280,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: 3,
+              itemBuilder: (_, __) => Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Column(
+                    children: [
+                      Container(height: 200, width: 160, color: Colors.white),
+                      const SizedBox(height: 8),
+                      Container(height: 16, width: 120, color: Colors.white),
+                      const SizedBox(height: 4),
+                      Container(height: 14, width: 80, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

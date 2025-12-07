@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../features/auth/presentation/pages/login_screen.dart'; // For logout navigation
 import 'order_history_screen.dart';
 import 'settings_screen.dart';
@@ -6,8 +9,81 @@ import '../../../wishlist/presentation/pages/wishlist_screen.dart';
 import 'settings/shipping_addresses_screen.dart';
 import 'settings/payment_methods_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final ValueNotifier<String?> _profileImageNotifier = ValueNotifier(null);
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  @override
+  void dispose() {
+    _profileImageNotifier.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadProfileImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    _profileImageNotifier.value = prefs.getString('profile_image_path');
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? image = await _picker.pickImage(source: source);
+      if (image != null) {
+        final prefs = await SharedPreferences.getInstance();
+        if (!mounted) return;
+        await prefs.setString('profile_image_path', image.path);
+        _profileImageNotifier.value = image.path;
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to pick image: $e')),
+        );
+      }
+    }
+  }
+
+  void _showPickerOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Photo Library'),
+                onTap: () {
+                  _pickImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  _pickImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +94,10 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SettingsScreen()),
-                );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
             },
           ),
         ],
@@ -31,19 +107,47 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             // Avatar & Info
-            const Center(
+            Center(
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage('https://i.pravatar.cc/300'), // Mock Avatar
+                  Stack(
+                    children: [
+                      ValueListenableBuilder<String?>(
+                        valueListenable: _profileImageNotifier,
+                        builder: (context, profileImagePath, _) {
+                          return CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Colors.grey[200],
+                            backgroundImage: profileImagePath != null
+                                ? FileImage(File(profileImagePath))
+                                : const NetworkImage('https://i.pravatar.cc/300') as ImageProvider,
+                          );
+                        },
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: _showPickerOptions,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                            child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     'Jane Doe',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  Text('jane.doe@example.com', style: TextStyle(color: Colors.grey)),
+                  const Text('jane.doe@example.com', style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),
@@ -83,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
             ),
-             ListTile(
+            ListTile(
               leading: const Icon(Icons.credit_card),
               title: const Text('Payment Methods'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -94,7 +198,7 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
             ),
-            
+
             const SizedBox(height: 24),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),

@@ -46,13 +46,15 @@ class WishlistScreen extends StatelessWidget {
               itemCount: state.wishlist.length,
               itemBuilder: (context, index) {
                 final product = state.wishlist[index];
+                final heroTag = 'wishlist_product_${product.id}';
                 return ProductCard(
                   product: product,
+                  heroTag: heroTag,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => ProductDetailsScreen(product: product),
+                        builder: (_) => ProductDetailsScreen(product: product, heroTag: heroTag),
                       ),
                     );
                   },

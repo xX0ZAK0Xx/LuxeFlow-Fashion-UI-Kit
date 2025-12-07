@@ -8,9 +8,17 @@ class NotificationSettingsScreen extends StatefulWidget {
 }
 
 class _NotificationSettingsScreenState extends State<NotificationSettingsScreen> {
-  bool _orderUpdates = true;
-  bool _promotions = true;
-  bool _newArrivals = false;
+  final ValueNotifier<bool> _orderUpdatesNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> _promotionsNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> _newArrivalsNotifier = ValueNotifier(false);
+
+  @override
+  void dispose() {
+    _orderUpdatesNotifier.dispose();
+    _promotionsNotifier.dispose();
+    _newArrivalsNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +26,38 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
       appBar: AppBar(title: const Text('Notification Settings')),
       body: ListView(
         children: [
-          SwitchListTile(
-            title: const Text('Order Updates'),
-            subtitle: const Text('Get notified about your order status'),
-            value: _orderUpdates,
-            onChanged: (val) => setState(() => _orderUpdates = val),
+          ValueListenableBuilder<bool>(
+            valueListenable: _orderUpdatesNotifier,
+            builder: (context, value, _) {
+              return SwitchListTile(
+                title: const Text('Order Updates'),
+                subtitle: const Text('Get notified about your order status'),
+                value: value,
+                onChanged: (val) => _orderUpdatesNotifier.value = val,
+              );
+            },
           ),
-          SwitchListTile(
-            title: const Text('Promotions'),
-            subtitle: const Text('Receive offers and discounts'),
-            value: _promotions,
-            onChanged: (val) => setState(() => _promotions = val),
+          ValueListenableBuilder<bool>(
+            valueListenable: _promotionsNotifier,
+            builder: (context, value, _) {
+              return SwitchListTile(
+                title: const Text('Promotions'),
+                subtitle: const Text('Receive offers and discounts'),
+                value: value,
+                onChanged: (val) => _promotionsNotifier.value = val,
+              );
+            },
           ),
-          SwitchListTile(
-            title: const Text('New Arrivals'),
-            subtitle: const Text('Be the first to know about new products'),
-            value: _newArrivals,
-            onChanged: (val) => setState(() => _newArrivals = val),
+          ValueListenableBuilder<bool>(
+            valueListenable: _newArrivalsNotifier,
+            builder: (context, value, _) {
+              return SwitchListTile(
+                title: const Text('New Arrivals'),
+                subtitle: const Text('Be the first to know about new products'),
+                value: value,
+                onChanged: (val) => _newArrivalsNotifier.value = val,
+              );
+            },
           ),
         ],
       ),

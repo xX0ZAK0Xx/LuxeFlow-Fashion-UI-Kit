@@ -11,7 +11,9 @@ class FilterModal extends StatefulWidget {
 }
 
 class _FilterModalState extends State<FilterModal> {
-  RangeValues _priceRange = const RangeValues(20, 100);
+  final ValueNotifier<RangeValues> _priceRangeNotifier = ValueNotifier(const RangeValues(20, 100));
+  final ValueNotifier<String?> _selectedColorNameNotifier = ValueNotifier(null);
+  final ValueNotifier<String?> _selectedSizeNotifier = ValueNotifier(null);
   
   final List<Map<String, dynamic>> _colors = [
     {'name': 'Black', 'color': Colors.black},
@@ -23,9 +25,14 @@ class _FilterModalState extends State<FilterModal> {
   ];
   
   final List<String> _sizes = ['XS', 'S', 'M', 'L', 'XL'];
-  
-  String? _selectedColorName;
-  String? _selectedSize;
+
+  @override
+  void dispose() {
+    _priceRangeNotifier.dispose();
+    _selectedColorNameNotifier.dispose();
+    _selectedSizeNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +75,9 @@ class _FilterModalState extends State<FilterModal> {
               ),
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    _priceRange = const RangeValues(0, 500);
-                    _selectedColorName = null;
-                    _selectedSize = null;
-                  });
+                  _priceRangeNotifier.value = const RangeValues(0, 500);
+                  _selectedColorNameNotifier.value = null;
+                  _selectedSizeNotifier.value = null;
                 },
                 child: Text(
                   'Reset', 
@@ -91,22 +96,31 @@ class _FilterModalState extends State<FilterModal> {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('\$${_priceRange.start.round()}', style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text('\$${_priceRange.end.round()}', style: const TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          RangeSlider(
-            values: _priceRange,
-            min: 0,
-            max: 500,
-            divisions: 50,
-            activeColor: AppColors.primary,
-            inactiveColor: AppColors.primary.withValues(alpha: 0.2),
-            onChanged: (values) {
-              setState(() => _priceRange = values);
+          ValueListenableBuilder<RangeValues>(
+            valueListenable: _priceRangeNotifier,
+            builder: (context, priceRange, _) {
+              return Column(
+                children: [
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('\$${priceRange.start.round()}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text('\$${priceRange.end.round()}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  RangeSlider(
+                    values: priceRange,
+                    min: 0,
+                    max: 500,
+                    divisions: 50,
+                    activeColor: AppColors.primary,
+                    inactiveColor: AppColors.primary.withValues(alpha: 0.2),
+                    onChanged: (values) {
+                      _priceRangeNotifier.value = values;
+                    },
+                  ),
+                ],
+              );
             },
           ),
           
@@ -120,45 +134,50 @@ class _FilterModalState extends State<FilterModal> {
             ),
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: _colors.map((colorItem) {
-              final colorName = colorItem['name'] as String;
-              final colorValue = colorItem['color'] as Color;
-              final isSelected = _selectedColorName == colorName;
-              
-              return GestureDetector(
-                onTap: () {
-                  setState(() => _selectedColorName = isSelected ? null : colorName);
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: colorValue,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: isSelected ? AppColors.primary : Colors.grey.withValues(alpha: 0.3),
-                      width: isSelected ? 2 : 1,
+          ValueListenableBuilder<String?>(
+            valueListenable: _selectedColorNameNotifier,
+            builder: (context, selectedColorName, _) {
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: _colors.map((colorItem) {
+                  final colorName = colorItem['name'] as String;
+                  final colorValue = colorItem['color'] as Color;
+                  final isSelected = selectedColorName == colorName;
+                  
+                  return GestureDetector(
+                    onTap: () {
+                      _selectedColorNameNotifier.value = isSelected ? null : colorName;
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: colorValue,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isSelected ? AppColors.primary : Colors.grey.withValues(alpha: 0.3),
+                          width: isSelected ? 2 : 1,
+                        ),
+                        boxShadow: [
+                          if (isSelected)
+                            BoxShadow(
+                              color: colorValue.withValues(alpha: 0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            )
+                        ],
+                      ),
+                      child: isSelected && colorValue == Colors.white 
+                          ? const Icon(Icons.check, size: 20, color: Colors.black)
+                          : isSelected 
+                            ? const Icon(Icons.check, size: 20, color: Colors.white)
+                            : null,
                     ),
-                    boxShadow: [
-                      if (isSelected)
-                        BoxShadow(
-                          color: colorValue.withValues(alpha: 0.4),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        )
-                    ],
-                  ),
-                  child: isSelected && colorValue == Colors.white 
-                      ? const Icon(Icons.check, size: 20, color: Colors.black)
-                      : isSelected 
-                        ? const Icon(Icons.check, size: 20, color: Colors.white)
-                        : null,
-                ),
+                  );
+                }).toList(),
               );
-            }).toList(),
+            },
           ),
           
           const SizedBox(height: 24),
@@ -171,42 +190,47 @@ class _FilterModalState extends State<FilterModal> {
             ),
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: _sizes.map((size) {
-              final isSelected = _selectedSize == size;
-              return GestureDetector(
-                onTap: () {
-                  setState(() => _selectedSize = isSelected ? null : size);
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primary : Colors.white,
-                    borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
-                    border: Border.all(
-                      color: isSelected ? AppColors.primary : Colors.grey.shade300,
+          ValueListenableBuilder<String?>(
+            valueListenable: _selectedSizeNotifier,
+            builder: (context, selectedSize, _) {
+              return Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: _sizes.map((size) {
+                  final isSelected = selectedSize == size;
+                  return GestureDetector(
+                    onTap: () {
+                       _selectedSizeNotifier.value = isSelected ? null : size;
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: isSelected ? AppColors.primary : Colors.white,
+                        borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
+                        border: Border.all(
+                          color: isSelected ? AppColors.primary : Colors.grey.shade300,
+                        ),
+                        boxShadow: isSelected ? [
+                          BoxShadow(
+                              color: AppColors.primary.withValues(alpha: 0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            )
+                        ] : [],
+                      ),
+                      child: Text(
+                        size,
+                        style: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black87,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
                     ),
-                    boxShadow: isSelected ? [
-                      BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        )
-                    ] : [],
-                  ),
-                  child: Text(
-                    size,
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black87,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                    ),
-                  ),
-                ),
+                  );
+                }).toList(),
               );
-            }).toList(),
+            },
           ),
           
           const SizedBox(height: 40),

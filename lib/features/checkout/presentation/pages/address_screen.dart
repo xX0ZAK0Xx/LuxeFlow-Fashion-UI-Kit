@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 
 class AddressScreen extends StatefulWidget {
   final Function(String) onAddressSelected;
@@ -34,38 +36,29 @@ class _AddressScreenState extends State<AddressScreen> {
           children: [
             Text('Shipping Address', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 24),
-            TextFormField(
+            CustomTextField(
               controller: _addressController,
-              decoration: const InputDecoration(
-                labelText: 'Street Address',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.home_outlined),
-              ),
+              label: 'Street Address',
+              prefixIcon: PhosphorIcons.house(),
               validator: (value) => value!.isEmpty ? 'Required' : null,
             ),
             const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
-                  child: TextFormField(
+                  child: CustomTextField(
                     controller: _cityController,
-                    decoration: const InputDecoration(
-                      labelText: 'City',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.location_city_outlined),
-                    ),
+                    label: 'City',
+                    prefixIcon: PhosphorIcons.buildings(),
                     validator: (value) => value!.isEmpty ? 'Required' : null,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: TextFormField(
+                  child: CustomTextField(
                     controller: _zipController,
-                    decoration: const InputDecoration(
-                      labelText: 'Zip Code',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.pin_drop_outlined),
-                    ),
+                    label: 'Zip Code',
+                    prefixIcon: PhosphorIcons.mapPin(),
                     keyboardType: TextInputType.number,
                     validator: (value) => value!.isEmpty ? 'Required' : null,
                   ),

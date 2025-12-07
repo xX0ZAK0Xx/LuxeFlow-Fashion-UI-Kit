@@ -12,16 +12,28 @@ import '../../../wishlist/presentation/blocs/wishlist_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity product;
+  final String? heroTag;
 
-  const ProductDetailsScreen({super.key, required this.product});
+  const ProductDetailsScreen({
+    super.key, 
+    required this.product,
+    this.heroTag,
+  });
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  String _selectedSize = 'M';
-  String _selectedColor = 'Black';
+  final ValueNotifier<String> _selectedSizeNotifier = ValueNotifier('M');
+  final ValueNotifier<String> _selectedColorNotifier = ValueNotifier('Black');
+
+  @override
+  void dispose() {
+    _selectedSizeNotifier.dispose();
+    _selectedColorNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +88,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   // Image Carousel
                   Stack(
                     children: [
-                      ImageCarousel(imageUrls: images, height: 450),
+                      Hero(
+                        tag: widget.heroTag ?? 'product_image_${widget.product.id}',
+                        child: ImageCarousel(imageUrls: images, height: 450),
+                      ),
                     ],
                   ),
                   
@@ -137,21 +152,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: ['S', 'M', 'L', 'XL'].map((size) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: CustomFilterChip(
-                                  label: size,
-                                  isSelected: _selectedSize == size,
-                                  onSelected: () {
-                                    setState(() {
-                                      _selectedSize = size;
-                                    });
-                                  },
-                                ),
+                          child: ValueListenableBuilder<String>(
+                            valueListenable: _selectedSizeNotifier,
+                            builder: (context, selectedSize, _) {
+                              return Row(
+                                children: ['S', 'M', 'L', 'XL'].map((size) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: CustomFilterChip(
+                                      label: size,
+                                      isSelected: selectedSize == size,
+                                      onSelected: () {
+                                        _selectedSizeNotifier.value = size;
+                                      },
+                                    ),
+                                  );
+                                }).toList(),
                               );
-                            }).toList(),
+                            },
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -159,34 +177,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         // Color Selector
                         Text('Select Color', style: Theme.of(context).textTheme.titleMedium),
                         const SizedBox(height: 12),
-                        Row(
-                          children: ['Black', 'Blue', 'Beige'].map((color) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 12.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _selectedColor = color;
-                                  });
-                                },
-                                child: Container(
-                                  width: 30,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: _getColor(color),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: _selectedColor == color ? Theme.of(context).primaryColor : Colors.grey[300]!,
-                                      width: 2,
+                        ValueListenableBuilder<String>(
+                          valueListenable: _selectedColorNotifier,
+                          builder: (context, selectedColor, _) {
+                            return Row(
+                              children: ['Black', 'Blue', 'Beige'].map((color) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 12.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _selectedColorNotifier.value = color;
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: _getColor(color),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: selectedColor == color ? Theme.of(context).primaryColor : Colors.grey[300]!,
+                                          width: 2,
+                                        ),
+                                        boxShadow: selectedColor == color
+                                            ? [BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.4), blurRadius: 8, spreadRadius: 2)]
+                                            : null,
+                                      ),
                                     ),
-                                    boxShadow: _selectedColor == color
-                                        ? [BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.4), blurRadius: 8, spreadRadius: 2)]
-                                        : null,
                                   ),
-                                ),
-                              ),
+                                );
+                              }).toList(),
                             );
-                          }).toList(),
+                          },
                         ),
                         
                         const SizedBox(height: 16),

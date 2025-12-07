@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../widgets/filter_modal.dart';
 import '../../../../core/widgets/product_card.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 import '../blocs/product_bloc.dart';
 import 'product_details_screen.dart';
 import '../../../../features/cart/presentation/blocs/cart_bloc.dart';
@@ -46,33 +48,28 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
+              child: CustomTextField(
                 controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search products, brands...',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Theme.of(context).cardColor,
-                  suffixIcon: _searchController.text.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            _searchController.clear();
-                            context.read<ProductBloc>().add(const SearchProducts(''));
-                            setState(() {});
-                          },
-                        )
-                      : null,
+                hintText: 'Search products, brands...',
+                prefixIcon: PhosphorIcons.magnifyingGlass(),
+                suffix: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: _searchController,
+                  builder: (context, value, child) {
+                    return value.text.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear, color: Colors.grey),
+                            onPressed: () {
+                              _searchController.clear();
+                              context.read<ProductBloc>().add(const SearchProducts(''));
+                            },
+                          )
+                        : const SizedBox.shrink();
+                  },
                 ),
                 onChanged: (value) {
-                  setState(() {}); // Updates suffix icon
                   // Debounce could be added here
                   context.read<ProductBloc>().add(SearchProducts(value));
-                },
+                }, label: 'Search',
               ),
             ),
             Expanded(
@@ -109,13 +106,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemCount: state.products.length,
                       itemBuilder: (context, index) {
                         final product = state.products[index];
+                        final heroTag = 'search_result_${product.id}';
                         return ProductCard(
                           product: product,
+                          heroTag: heroTag,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => ProductDetailsScreen(product: product),
+                                builder: (_) => ProductDetailsScreen(product: product, heroTag: heroTag),
                               ),
                             );
                           },
@@ -177,15 +176,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                itemCount: state.featuredProducts.length,
                                itemBuilder: (context, index) {
                                   final product = state.featuredProducts[index];
+                                  final heroTag = 'search_popular_${product.id}';
                                   return Container(
                                    width: 180,
                                    margin: const EdgeInsets.only(right: 12),
                                    child: ProductCard(
                                      product: product,
+                                     heroTag: heroTag,
                                      onTap: () {
                                        Navigator.push(
                                          context,
-                                         MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: product)),
+                                         MaterialPageRoute(builder: (_) => ProductDetailsScreen(product: product, heroTag: heroTag)),
                                        );
                                      },
                                      onAddToCart: () {

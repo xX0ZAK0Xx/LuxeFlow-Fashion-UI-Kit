@@ -11,53 +11,62 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  int _currentStep = 0;
+  final ValueNotifier<int> _currentStepNotifier = ValueNotifier(0);
   // String? _shippingAddress;
+
+  @override
+  void dispose() {
+    _currentStepNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Checkout')),
-      body: Stepper(
-        type: StepperType.horizontal,
-        currentStep: _currentStep,
-        onStepTapped: (index) {
-          // Only allow tapping back or if moving forward sequentially (validation needed in real app)
-          if (index < _currentStep) {
-            setState(() => _currentStep = index);
-          }
+      body: ValueListenableBuilder<int>(
+        valueListenable: _currentStepNotifier,
+        builder: (context, currentStep, _) {
+          return Stepper(
+            type: StepperType.horizontal,
+            currentStep: currentStep,
+            onStepTapped: (index) {
+              // Only allow tapping back or if moving forward sequentially (validation needed in real app)
+              if (index < currentStep) {
+                _currentStepNotifier.value = index;
+              }
+            },
+            controlsBuilder: (context, details) {
+              return const SizedBox.shrink(); // Hide default buttons, we use custom ones inside screens
+            },
+            steps: [
+              Step(
+                title: const Text('Address'),
+                content: AddressScreen(
+                  onAddressSelected: (address) {
+                    // _shippingAddress = address;
+                    _currentStepNotifier.value = 1;
+                  },
+                ),
+                isActive: currentStep >= 0,
+                state: currentStep > 0 ? StepState.complete : StepState.editing,
+              ),
+              Step(
+                title: const Text('Payment'),
+                content: PaymentScreen(
+                  onPaymentSuccess: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const OrderSuccessScreen()),
+                    );
+                  },
+                ),
+                isActive: currentStep >= 1,
+                state: currentStep == 1 ? StepState.editing : StepState.disabled, // Only active when step 1
+              ),
+            ],
+          );
         },
-        controlsBuilder: (context, details) {
-          return const SizedBox.shrink(); // Hide default buttons, we use custom ones inside screens
-        },
-        steps: [
-          Step(
-            title: const Text('Address'),
-            content: AddressScreen(
-              onAddressSelected: (address) {
-                setState(() {
-                  // _shippingAddress = address;
-                  _currentStep = 1;
-                });
-              },
-            ),
-            isActive: _currentStep >= 0,
-            state: _currentStep > 0 ? StepState.complete : StepState.editing,
-          ),
-          Step(
-            title: const Text('Payment'),
-            content: PaymentScreen(
-              onPaymentSuccess: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const OrderSuccessScreen()),
-                );
-              },
-            ),
-            isActive: _currentStep >= 1,
-            state: _currentStep == 1 ? StepState.editing : StepState.disabled, // Only active when step 1
-          ),
-        ],
       ),
     );
   }

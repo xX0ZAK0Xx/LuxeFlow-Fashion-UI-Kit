@@ -81,7 +81,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     LoadDashboard event,
     Emitter<ProductState> emit,
   ) async {
-    emit(ProductLoading());
+    if (state is! DashboardLoaded) {
+      emit(ProductLoading());
+    }
     // Run both requests in parallel
     final results = await Future.wait([
       getCategories(NoParams()),

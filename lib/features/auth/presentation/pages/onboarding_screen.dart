@@ -11,7 +11,14 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final ValueNotifier<int> _currentPageNotifier = ValueNotifier(0);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _currentPageNotifier.dispose();
+    super.dispose();
+  }
 
   final List<Map<String, String>> _onboardingData = [
     {
@@ -38,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           PageView.builder(
             controller: _pageController,
-            onPageChanged: (value) => setState(() => _currentPage = value),
+            onPageChanged: (value) => _currentPageNotifier.value = value,
             itemCount: _onboardingData.length,
             itemBuilder: (context, index) => _buildPage(
               image: _onboardingData[index]["image"]!,
@@ -53,35 +60,50 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: List.generate(
-                    _onboardingData.length,
-                    (index) => Container(
-                      margin: const EdgeInsets.only(right: 6),
-                      height: 8,
-                      width: _currentPage == index ? 24 : 8,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index ? AppColors.secondary : Colors.grey,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_currentPage == _onboardingData.length - 1) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (_) => const LoginScreen()),
-                      );
-                    } else {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
-                    }
+                ValueListenableBuilder<int>(
+                  valueListenable: _currentPageNotifier,
+                  builder: (context, currentPage, _) {
+                    return Row(
+                      children: [
+                        Row(
+                          children: List.generate(
+                            _onboardingData.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              margin: const EdgeInsets.only(right: 6),
+                              height: 8,
+                              width: currentPage == index ? 24 : 8,
+                              decoration: BoxDecoration(
+                                color: currentPage == index ? AppColors.secondary : Colors.grey,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
                   },
-                  child: Text(_currentPage == _onboardingData.length - 1 ? "Get Started" : "Next"),
+                ),
+                ValueListenableBuilder<int>(
+                  valueListenable: _currentPageNotifier,
+                  builder: (context, currentPage, _) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        if (currentPage == _onboardingData.length - 1) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => const LoginScreen()),
+                          );
+                        } else {
+                          _pageController.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
+                        }
+                      },
+                      child: Text(currentPage == _onboardingData.length - 1 ? "Get Started" : "Next"),
+                    );
+                  },
                 )
               ],
             ),

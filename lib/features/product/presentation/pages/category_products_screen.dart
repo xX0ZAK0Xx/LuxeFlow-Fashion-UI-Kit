@@ -57,13 +57,15 @@ class CategoryProductsScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 final product = categoryProducts[index];
+                final heroTag = 'category_product_${product.id}';
                 return ProductCard(
                   product: product,
+                  heroTag: heroTag,
                   onTap: () {
                      Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => ProductDetailsScreen(product: product),
+                        builder: (_) => ProductDetailsScreen(product: product, heroTag: heroTag),
                       ),
                     );
                   },

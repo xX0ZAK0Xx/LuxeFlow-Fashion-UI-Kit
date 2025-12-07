@@ -7,12 +7,14 @@ class ProductCard extends StatelessWidget {
   final ProductEntity product;
   final VoidCallback? onTap;
   final VoidCallback? onAddToCart;
+  final String? heroTag;
 
   const ProductCard({
     super.key,
     required this.product,
     this.onTap,
     this.onAddToCart,
+    this.heroTag,
   });
 
   @override
@@ -37,7 +39,7 @@ class ProductCard extends StatelessWidget {
                    ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                     child: Hero(
-                      tag: 'product_image_${product.id}',
+                      tag: heroTag ?? 'product_image_${product.id}',
                       child: CachedNetworkImage(
                         imageUrl: product.imageUrl,
                         fit: BoxFit.cover,

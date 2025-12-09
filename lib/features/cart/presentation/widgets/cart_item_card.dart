@@ -77,10 +77,16 @@ class CartItemCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     
                     // Product Subtitle/Specs
-                    Text(
-                       'Fashion', // Generic fallback as category name is not in Entity
-                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
-                    ),
+                    if (item.selectedColor != null || item.selectedSize != null)
+                      Text(
+                        '${item.selectedColor ?? ''}${item.selectedColor != null && item.selectedSize != null ? ' | ' : ''}${item.selectedSize ?? ''}', 
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                      )
+                    else 
+                      Text(
+                         'Fashion', // Generic fallback
+                         style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                      ),
 
                     const Spacer(),
                     

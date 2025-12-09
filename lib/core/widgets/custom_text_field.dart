@@ -66,24 +66,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
+            if (widget.label.isNotEmpty) ...[
+              Text(
+                widget.label,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+              ),
+              const SizedBox(height: 8),
+            ],
+            Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: isFocused ? Theme.of(context).primaryColor : Colors.grey.withValues(alpha: 0.2),
-                  width: isFocused ? 2 : 1,
-                ),
-                boxShadow: isFocused
-                    ? [
-                        BoxShadow(
-                          color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        )
-                      ]
-                    : [],
+                color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: ValueListenableBuilder<bool>(
                 valueListenable: _obscureTextNotifier,
@@ -100,13 +96,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     autofocus: widget.autofocus,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
                     decoration: InputDecoration(
-                      labelText: widget.label,
                       hintText: widget.hintText,
-                      alignLabelWithHint: true,
-                      labelStyle: TextStyle(
-                        color: isFocused ? Theme.of(context).primaryColor : Colors.grey[600],
-                        fontWeight: isFocused ? FontWeight.w600 : FontWeight.normal,
-                      ),
+                      hintStyle: TextStyle(color: Colors.grey[500]),
                       prefixIcon: widget.prefixIcon != null
                           ? Icon(
                               widget.prefixIcon,
@@ -133,26 +124,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       errorBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 16,
+                        horizontal: 16,
+                        vertical: 14,
                       ),
                     ),
                   );
                 },
               ),
             ),
-            // Validator error placement (TextFormField handles this mostly, but our container wraps it. 
-            // If the validator fails, the error text shows INSIDE the container with InputBorder.none? 
-            // Actually InputBorder.none usually suppresses error text. 
-            // Wait, default helperText/errorText appears below the input area. 
-            // With InputBorder.none, it should still appear if there's space. 
-            // Let's test this. Usually standard Flutter TextFormField draws error below line. 
-            // Since we wrapped it in a Container, the error will be inside the container? No.
-            // The Container wraps the TextFormField.
-            // So if `errorText` is generated, it will expand the Container height if inside.
-            // Or we might need to rely on the TextFormField's built-in error display which might look weird inside a box.
-            // A common pattern for "Custom Box" fields is to set errorStyle: height: 0 and show validation error manually below.
-            // Or just let it render inside. Let's stick to standard behavior for now and see.)
           ],
         );
       },

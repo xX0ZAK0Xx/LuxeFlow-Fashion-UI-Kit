@@ -17,14 +17,18 @@ class GetCart implements UseCase<List<CartItemEntity>, NoParams> {
   }
 }
 
-class AddToCart implements UseCase<void, ProductEntity> {
+class AddToCart implements UseCase<void, AddToCartParams> {
   final CartRepository repository;
 
   AddToCart(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(ProductEntity params) async {
-    return await repository.addToCart(params);
+  Future<Either<Failure, void>> call(AddToCartParams params) async {
+    return await repository.addToCart(
+      params.product, 
+      color: params.color, 
+      size: params.size,
+    );
   }
 }
 
@@ -55,4 +59,12 @@ class UpdateCartItemParams {
   final int quantity;
 
   UpdateCartItemParams({required this.product, required this.quantity});
+}
+
+class AddToCartParams {
+  final ProductEntity product;
+  final String? color;
+  final String? size;
+
+  AddToCartParams({required this.product, this.color, this.size});
 }

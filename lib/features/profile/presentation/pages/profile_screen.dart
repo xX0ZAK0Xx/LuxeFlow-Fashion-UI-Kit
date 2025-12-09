@@ -2,12 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../features/auth/presentation/pages/login_screen.dart'; // For logout navigation
 import 'order_history_screen.dart';
 import 'settings_screen.dart';
 import '../../../wishlist/presentation/pages/wishlist_screen.dart';
-import 'settings/shipping_addresses_screen.dart';
-import 'settings/payment_methods_screen.dart';
+import '../../../shipping/presentation/pages/shipping_addresses_screen.dart';
+import '../../../payment/presentation/pages/payment_methods_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -132,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: AppColors.backgroundDark,
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 2),
                             ),

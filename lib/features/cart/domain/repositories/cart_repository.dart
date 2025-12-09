@@ -5,7 +5,7 @@ import '../entities/cart_item_entity.dart';
 
 abstract class CartRepository {
   Future<Either<Failure, List<CartItemEntity>>> getCart();
-  Future<Either<Failure, void>> addToCart(ProductEntity product);
+  Future<Either<Failure, void>> addToCart(ProductEntity product, {String? color, String? size});
   Future<Either<Failure, void>> removeFromCart(ProductEntity product); // Decrement or remove
   Future<Either<Failure, void>> updateCartItem(ProductEntity product, int quantity);
   Future<Either<Failure, void>> clearCart();

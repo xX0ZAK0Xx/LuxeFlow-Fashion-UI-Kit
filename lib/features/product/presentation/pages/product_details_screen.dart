@@ -253,7 +253,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           padding: const EdgeInsets.all(AppDimens.p16),
           child: ElevatedButton(
             onPressed: () {
-              context.read<CartBloc>().add(AddProductToCart(widget.product));
+              context.read<CartBloc>().add(AddProductToCart(
+                widget.product,
+                color: _selectedColorNotifier.value,
+                size: _selectedSizeNotifier.value,
+              ));
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('${widget.product.name} added to cart')),
               );

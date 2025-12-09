@@ -1,76 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimens.dart';
+import '../../domain/entities/notification_entity.dart';
+import '../blocs/notification_bloc.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Dummy Data
-    final notifications = [
-      {
-        'title': 'Order Shipped!',
-        'body': 'Your order #12345 has been shipped and is on its way.',
-        'time': '2 hours ago',
-        'isRead': false,
-        'icon': PhosphorIcons.truck(PhosphorIconsStyle.bold),
-        'color': Colors.blue,
-      },
-      {
-        'title': 'New Collection Alert',
-        'body': 'Check out our new Winter Collection. Limited stock!',
-        'time': '5 hours ago',
-        'isRead': false,
-        'icon': PhosphorIcons.tag(PhosphorIconsStyle.bold),
-        'color': Colors.orange,
-      },
-      {
-        'title': 'Payment Successful',
-        'body': 'We received your payment for order #12345.',
-        'time': '1 day ago',
-        'isRead': true,
-        'icon': PhosphorIcons.creditCard(PhosphorIconsStyle.bold),
-        'color': Colors.green,
-      },
-      {
-        'title': 'Welcome Gift',
-        'body': 'Enjoy 10% off your first purchase. Use code WELCOME10.',
-        'time': '2 days ago',
-        'isRead': true,
-        'icon': PhosphorIcons.gift(PhosphorIconsStyle.bold),
-        'color': Colors.purple,
-      },
-    ];
-
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('Notifications'),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(PhosphorIcons.checks()),
-            onPressed: () {},
+            onPressed: () {
+               context.read<NotificationBloc>().add(MarkAllAsReadEvent());
+            },
             tooltip: 'Mark all as read',
           ),
         ],
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: notifications.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, index) {
-          final n = notifications[index];
-          final isRead = n['isRead'] as bool;
+      body: BlocBuilder<NotificationBloc, NotificationState>(
+        builder: (context, state) {
+          if (state is NotificationLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is NotificationLoaded) {
+            if (state.notifications.isEmpty) {
+              return const Center(child: Text('No notifications'));
+            }
+            return ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: state.notifications.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final n = state.notifications[index];
+                return _buildNotificationCard(context, n);
+              },
+            );
+          } else if (state is NotificationError) {
+             return Center(child: Text(state.message));
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
 
-          return Container(
+  Widget _buildNotificationCard(BuildContext context, NotificationEntity n) {
+      Color iconColor;
+      IconData iconData;
+
+      switch (n.type) {
+        case 'shipping':
+          iconColor = Colors.blue;
+          iconData = PhosphorIcons.truck(PhosphorIconsStyle.bold);
+          break;
+        case 'offer':
+          iconColor = Colors.orange;
+          iconData = PhosphorIcons.tag(PhosphorIconsStyle.bold);
+          break;
+        case 'payment':
+          iconColor = Colors.green;
+          iconData = PhosphorIcons.creditCard(PhosphorIconsStyle.bold);
+          break;
+        case 'general':
+        default:
+          iconColor = Colors.purple;
+          iconData = PhosphorIcons.gift(PhosphorIconsStyle.bold);
+          break;
+      }
+      
+      return GestureDetector(
+        onTap: () {
+           if (!n.isRead) {
+             context.read<NotificationBloc>().add(MarkAsReadEvent(n.id));
+           }
+        },
+        child: Container(
             decoration: BoxDecoration(
-              color: isRead ? Colors.white : AppColors.primary.withValues(alpha: 0.05),
+              color: n.isRead 
+                  ? Theme.of(context).cardColor 
+                  : Theme.of(context).primaryColor.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
               border: Border.all(
-                color: isRead ? Colors.grey.shade200 : AppColors.primary.withValues(alpha: 0.1),
+                color: n.isRead 
+                    ? Theme.of(context).dividerColor.withValues(alpha: 0.1)
+                    : Theme.of(context).primaryColor.withValues(alpha: 0.2),
               ),
             ),
             padding: const EdgeInsets.all(16),
@@ -80,10 +99,10 @@ class NotificationScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: (n['color'] as Color).withValues(alpha: 0.1),
+                    color: iconColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(n['icon'] as IconData, color: n['color'] as Color, size: 24),
+                  child: Icon(iconData, color: iconColor, size: 24),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -93,26 +112,30 @@ class NotificationScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            n['title'] as String,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: isRead ? Colors.black87 : AppColors.primary,
-                                ),
+                          Expanded(
+                            child: Text(
+                              n.title,
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: n.isRead ? FontWeight.w400 : FontWeight.w700,
+                                    color: n.isRead 
+                                        ? Theme.of(context).textTheme.bodyLarge?.color 
+                                        : Theme.of(context).primaryColor,
+                                  ),
+                            ),
                           ),
                           Text(
-                            n['time'] as String,
+                            n.time,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: Colors.grey,
+                                  color: Theme.of(context).textTheme.bodySmall?.color?.withValues(alpha: 0.7),
                                 ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        n['body'] as String,
+                        n.body,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.black54,
+                              color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.8),
                             ),
                       ),
                     ],
@@ -120,9 +143,7 @@ class NotificationScreen extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
-    );
+          ),
+      );
   }
 }

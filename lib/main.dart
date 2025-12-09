@@ -5,6 +5,9 @@ import 'features/auth/presentation/blocs/auth_bloc.dart';
 import 'features/cart/presentation/blocs/cart_bloc.dart';
 import 'features/product/presentation/blocs/product_bloc.dart';
 import 'features/wishlist/presentation/blocs/wishlist_bloc.dart';
+import 'features/shipping/presentation/blocs/shipping_bloc.dart';
+import 'features/payment/presentation/blocs/payment_bloc.dart';
+import 'features/notification/presentation/blocs/notification_bloc.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 
@@ -39,6 +42,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => WishlistBloc()..add(LoadWishlist()),
         ),
+        BlocProvider(
+          create: (_) => di.sl<ShippingBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<PaymentBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<NotificationBloc>()..add(LoadNotifications()),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
@@ -56,3 +68,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+/*
+text action 
+keyboard type
+*/

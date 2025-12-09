@@ -16,9 +16,13 @@ class LoadCart extends CartEvent {}
 
 class AddProductToCart extends CartEvent {
   final ProductEntity product;
-  const AddProductToCart(this.product);
+  final String? color;
+  final String? size;
+
+  const AddProductToCart(this.product, {this.color, this.size});
+
   @override
-  List<Object> get props => [product];
+  List<Object?> get props => [product, color, size];
 }
 
 class RemoveProductFromCart extends CartEvent {
@@ -102,7 +106,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     AddProductToCart event,
     Emitter<CartState> emit,
   ) async {
-    await addToCart(event.product);
+    await addToCart(AddToCartParams(
+      product: event.product, 
+      color: event.color, 
+      size: event.size
+    ));
     add(LoadCart());
   }
 

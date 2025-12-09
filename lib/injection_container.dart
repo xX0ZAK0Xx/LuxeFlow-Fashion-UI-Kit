@@ -18,6 +18,24 @@ import 'features/cart/presentation/blocs/cart_bloc.dart';
 import 'features/product/presentation/blocs/product_bloc.dart';
 import 'core/theme/bloc/theme_bloc.dart';
 
+import 'features/shipping/data/datasources/shipping_local_data_source.dart';
+import 'features/shipping/data/repositories/shipping_repository_impl.dart';
+import 'features/shipping/domain/repositories/shipping_repository.dart';
+import 'features/shipping/domain/usecases/shipping_usecases.dart';
+import 'features/shipping/presentation/blocs/shipping_bloc.dart';
+
+import 'features/notification/data/datasources/notification_local_data_source.dart';
+import 'features/notification/data/repositories/notification_repository_impl.dart';
+import 'features/notification/domain/repositories/notification_repository.dart';
+import 'features/notification/domain/usecases/notification_usecases.dart';
+import 'features/notification/presentation/blocs/notification_bloc.dart';
+
+import 'features/payment/data/datasources/payment_local_data_source.dart';
+import 'features/payment/data/repositories/payment_repository_impl.dart';
+import 'features/payment/domain/repositories/payment_repository.dart';
+import 'features/payment/domain/usecases/payment_usecases.dart';
+import 'features/payment/presentation/blocs/payment_bloc.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -68,6 +86,60 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<CartLocalDataSource>(
     () => CartLocalDataSourceImpl(),
+  );
+
+  // Features - Shipping
+  sl.registerFactory(
+    () => ShippingBloc(
+      getAddresses: sl(),
+      addAddress: sl(),
+      deleteAddress: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetShippingAddresses(sl()));
+  sl.registerLazySingleton(() => AddShippingAddress(sl()));
+  sl.registerLazySingleton(() => DeleteShippingAddress(sl()));
+  sl.registerLazySingleton<ShippingRepository>(
+    () => ShippingRepositoryImpl(localDataSource: sl()),
+  );
+  sl.registerLazySingleton<ShippingLocalDataSource>(
+    () => ShippingLocalDataSourceImpl(),
+  );
+
+  // Features - Payment
+  sl.registerFactory(
+    () => PaymentBloc(
+      getMethods: sl(),
+      addMethod: sl(),
+      deleteMethod: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetPaymentMethods(sl()));
+  sl.registerLazySingleton(() => AddPaymentMethod(sl()));
+  sl.registerLazySingleton(() => DeletePaymentMethod(sl()));
+  sl.registerLazySingleton<PaymentRepository>(
+    () => PaymentRepositoryImpl(localDataSource: sl()),
+  );
+  sl.registerLazySingleton<PaymentLocalDataSource>(
+    () => PaymentLocalDataSourceImpl(),
+  );
+
+  // Features - Notification
+  sl.registerFactory(
+    () => NotificationBloc(
+      getNotifications: sl(),
+      markAllAsRead: sl(),
+      markAsRead: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetNotifications(sl()));
+  sl.registerLazySingleton(() => MarkAllNotificationsAsRead(sl()));
+  sl.registerLazySingleton(() => MarkNotificationAsRead(sl()));
+  sl.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepositoryImpl(localDataSource: sl()),
+  );
+  sl.registerLazySingleton<NotificationLocalDataSource>(
+    () => NotificationLocalDataSourceImpl(),
   );
 
   // Core

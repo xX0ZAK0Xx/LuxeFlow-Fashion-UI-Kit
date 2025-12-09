@@ -11,9 +11,9 @@ class CartRepositoryImpl implements CartRepository {
   CartRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, void>> addToCart(ProductEntity product) async {
+  Future<Either<Failure, void>> addToCart(ProductEntity product, {String? color, String? size}) async {
     try {
-      await localDataSource.addToCart(product);
+      await localDataSource.addToCart(product, color: color, size: size);
       return const Right(null);
     } catch (e) {
       return Left(CacheFailure(e.toString()));

@@ -22,21 +22,21 @@ class SocialLoginButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
-          border: Border.all(color: Colors.grey.shade300),
-          color: Colors.white,
+          // border: Border.all(color: Colors.grey.shade300),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Assuming we have assets, but for now using Icons if asset logic not fully set up
             // Or typically simple image asset
-             Image.network(assetPath, width: 24, height: 24, errorBuilder: (c,o,s) => const Icon(Icons.public, size: 24)),
+             Image.asset(assetPath, width: 24, height: 24, errorBuilder: (c,o,s) => const Icon(Icons.public, size: 24)),
             const SizedBox(width: 12),
             Text(
               label,
-              style: const TextStyle(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: Colors.black87,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],

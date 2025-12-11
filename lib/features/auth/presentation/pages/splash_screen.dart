@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:luxeflow_fashion_ui_kit/core/constants/app_images.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../pages/onboarding_screen.dart';
 
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.diamond_outlined, size: 80, color: AppColors.secondary),
+              Image.asset(AppImages.appIcon, width: 80, height: 80),
               const SizedBox(height: 20),
               Text(
                 'LuxeFlow',

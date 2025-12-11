@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow_fashion_ui_kit/features/home/presentation/pages/home_screen.dart';
 import 'features/auth/presentation/blocs/auth_bloc.dart';
+import 'features/auth/presentation/pages/splash_screen.dart';
 import 'features/cart/presentation/blocs/cart_bloc.dart';
 import 'features/product/presentation/blocs/product_bloc.dart';
 import 'features/wishlist/presentation/blocs/wishlist_bloc.dart';
@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: state.themeMode,
             debugShowCheckedModeBanner: false,
-            // home: const SplashScreen(),
-            home: const HomeScreen(),
+            home: const SplashScreen(),
+            // home: const HomeScreen(),
           );
         },
       ),

@@ -113,8 +113,8 @@ class _FilterModalState extends State<FilterModal> {
                     min: 0,
                     max: 500,
                     divisions: 50,
-                    activeColor: AppColors.primary,
-                    inactiveColor: AppColors.primary.withValues(alpha: 0.2),
+                    activeColor: Theme.of(context).colorScheme.onSurface,
+                    inactiveColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
                     onChanged: (values) {
                       _priceRangeNotifier.value = values;
                     },

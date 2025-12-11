@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luxeflow_fashion_ui_kit/core/constants/app_images.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimens.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/social_login_button.dart';
@@ -60,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -88,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       width: 300,
                       height: 300,
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -111,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               style: GoogleFonts.bodoniModa(
                                 fontSize: 42,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -119,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             Text(
                               'Welcome back, trendsetter.',
                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.grey,
+                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                   ),
                               textAlign: TextAlign.center,
                             ),
@@ -158,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 child: Text(
                                   'Forgot Password?',
                                   style: TextStyle(
-                                    color: AppColors.primary,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -173,14 +172,14 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               ElevatedButton(
                                 onPressed: _onLoginPressed,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  foregroundColor: Colors.white,
+                                  backgroundColor: Theme.of(context).colorScheme.onSurface,
+                                  foregroundColor: Theme.of(context).colorScheme.surface,
                                   padding: const EdgeInsets.symmetric(vertical: 16),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
                                   ),
                                   elevation: 5,
-                                  shadowColor: AppColors.primary.withValues(alpha: 0.4),
+                                  shadowColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
                                 ),
                                 child: const Text(
                                   'Sign In',
@@ -191,12 +190,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             const SizedBox(height: 32),
                              Row(
                               children: [
-                                Expanded(child: Divider(color: Colors.grey.shade300)),
+                                Expanded(child: Divider(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4))),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                                  child: Text('OR CONTINUE WITH', style: TextStyle(color: Colors.grey.shade500, fontSize: 12)),
+                                  child: Text('OR CONTINUE WITH', style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4), fontSize: 12)),
                                 ),
-                                Expanded(child: Divider(color: Colors.grey.shade300)),
+                                Expanded(child: Divider(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4))),
                               ],
                             ),
                             const SizedBox(height: 24),
@@ -207,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 Expanded(
                                   child: SocialLoginButton(
                                     label: 'Google',
-                                    assetPath: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg', 
+                                    assetPath: AppImages.googleIcon, 
                                     onPressed: () {},
                                   ),
                                 ),
@@ -215,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 Expanded(
                                   child: SocialLoginButton(
                                     label: 'Apple',
-                                    assetPath: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
+                                    assetPath: AppImages.appleIcon,
                                     onPressed: () {},
                                   ),
                                 ),
@@ -228,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Don't have an account?", style: TextStyle(color: Colors.grey.shade600)),
+                                Text("Don't have an account?", style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6))),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -239,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   child: Text(
                                     'Create Account',
                                     style: TextStyle(
-                                      color: AppColors.primary,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

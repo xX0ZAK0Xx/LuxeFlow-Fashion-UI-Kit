@@ -327,11 +327,11 @@ class HomeFeed extends StatelessWidget {
         children: [
           // Banner Shimmer
           Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+            highlightColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
             child: Container(
               height: 400,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
             ),
           ),
           const SizedBox(height: 24),
@@ -344,13 +344,13 @@ class HomeFeed extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: 5,
               itemBuilder: (_, __) => Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
+                baseColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+                highlightColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                 child: Container(
                   width: 80,
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -363,9 +363,9 @@ class HomeFeed extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Shimmer.fromColors(
-               baseColor: Colors.grey[300]!,
-               highlightColor: Colors.grey[100]!,
-               child: Container(height: 24, width: 150, color: Colors.white),
+               baseColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+               highlightColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
+               child: Container(height: 24, width: 150, color: Theme.of(context).colorScheme.surface),
             ),
           ),
           const SizedBox(height: 16),
@@ -380,15 +380,15 @@ class HomeFeed extends StatelessWidget {
               itemBuilder: (_, __) => Padding(
                 padding: const EdgeInsets.only(right: 16),
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+                  highlightColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
                   child: Column(
                     children: [
-                      Container(height: 200, width: 160, color: Colors.white),
+                      Container(height: 200, width: 160, color: Theme.of(context).colorScheme.surface),
                       const SizedBox(height: 8),
-                      Container(height: 16, width: 120, color: Colors.white),
+                      Container(height: 16, width: 120, color: Theme.of(context).colorScheme.surface),
                       const SizedBox(height: 4),
-                      Container(height: 14, width: 80, color: Colors.white),
+                      Container(height: 14, width: 80, color: Theme.of(context).colorScheme.surface),
                     ],
                   ),
                 ),

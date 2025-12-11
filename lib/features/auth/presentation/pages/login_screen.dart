@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luxeflow_fashion_ui_kit/core/constants/app_images.dart';
+import 'package:luxeflow/core/constants/app_images.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/constants/app_dimens.dart';
 import '../../../../core/widgets/custom_text_field.dart';

@@ -1,4 +1,4 @@
-package com.example.luxeflow_fashion_ui_kit
+package com.yourcompany.luxeFlow
 
 import io.flutter.embedding.android.FlutterActivity
 

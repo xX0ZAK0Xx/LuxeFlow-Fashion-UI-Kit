@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow_fashion_ui_kit/features/product/presentation/pages/category_products_screen.dart';
+import 'package:luxeflow/features/product/presentation/pages/category_products_screen.dart';
 import '../blocs/product_bloc.dart';
 
 class CategoryListScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:luxeflow_fashion_ui_kit/features/product/data/product_model.dart';
+import 'package:luxeflow/features/product/data/product_model.dart';
 
 class CartItemModel {
   final ProductModel product;

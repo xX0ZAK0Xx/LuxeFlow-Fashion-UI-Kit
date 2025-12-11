@@ -1,4 +1,4 @@
-import 'package:luxeflow_fashion_ui_kit/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:luxeflow/features/cart/domain/entities/cart_item_entity.dart';
 
 import '../../../product/domain/entities/product_entity.dart';
 

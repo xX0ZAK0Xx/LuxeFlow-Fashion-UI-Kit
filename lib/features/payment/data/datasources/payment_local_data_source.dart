@@ -1,4 +1,4 @@
-import 'package:luxeflow_fashion_ui_kit/features/payment/domain/entities/payment_method_entity.dart';
+import 'package:luxeflow/features/payment/domain/entities/payment_method_entity.dart';
 
 
 abstract class PaymentLocalDataSource {

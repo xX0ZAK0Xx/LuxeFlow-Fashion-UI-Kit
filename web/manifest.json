@@ -1,6 +1,6 @@
 {
-    "name": "luxeflow_fashion_ui_kit",
-    "short_name": "luxeflow_fashion_ui_kit",
+    "name": "luxeflow",
+    "short_name": "luxeflow",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

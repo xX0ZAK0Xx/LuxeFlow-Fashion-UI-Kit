@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:luxeflow_fashion_ui_kit/core/constants/app_images.dart';
+import 'package:luxeflow/core/constants/app_images.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../pages/onboarding_screen.dart';
 

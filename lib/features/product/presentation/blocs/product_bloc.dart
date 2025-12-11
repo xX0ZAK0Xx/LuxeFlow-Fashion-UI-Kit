@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow_fashion_ui_kit/core/usecases/usecase.dart';
+import 'package:luxeflow/core/usecases/usecase.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/usecases/get_products.dart';

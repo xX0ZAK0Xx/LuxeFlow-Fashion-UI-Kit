@@ -1,3 +1,3 @@
-# luxeflow_fashion_ui_kit
+# luxeflow
 
 A new Flutter project.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow_fashion_ui_kit/core/constants/app_dimens.dart';
+import 'package:luxeflow/core/constants/app_dimens.dart';
 import '../../../../core/widgets/custom_filter_chip.dart';
 import '../../../../core/widgets/image_carousel.dart';
 import '../../../../core/widgets/size_guide_modal.dart';

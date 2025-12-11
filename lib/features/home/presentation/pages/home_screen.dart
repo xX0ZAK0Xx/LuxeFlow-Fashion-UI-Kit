@@ -17,6 +17,9 @@ import '../widgets/hero_banner.dart';
 import '../widgets/category_pills.dart';
 import 'offers_screen.dart';
 import '../widgets/section_header.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -120,7 +123,7 @@ class HomeFeed extends StatelessWidget {
                       'LuxeFlow', 
                       style: TextStyle(
                         fontWeight: FontWeight.bold, 
-                        color: Colors.white, 
+                        color: AppColors.textDarkPrimary, 
                         shadows: [Shadow(color: Colors.black45, blurRadius: 5)],
                       ),
                     ),
@@ -136,9 +139,9 @@ class HomeFeed extends StatelessWidget {
                               ? Badge(
                                   label: Text('$wishlistCount'),
                                   backgroundColor: Theme.of(context).primaryColor,
-                                  child: const Icon(Icons.favorite_border, color: Colors.white, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]),
+                                  child: const Icon(AppIcons.favorite, color: AppColors.textDarkPrimary, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]),
                                 )
-                              : const Icon(Icons.favorite_border, color: Colors.white, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]),
+                              : const Icon(AppIcons.favorite, color: AppColors.textDarkPrimary, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]),
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (_) => const WishlistScreen()));
                             },
@@ -146,7 +149,7 @@ class HomeFeed extends StatelessWidget {
                          },
                        ),
                       IconButton(
-                        icon: const Icon(Icons.notifications_outlined, color: Colors.white, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]), 
+                        icon: const Icon(AppIcons.notification, color: AppColors.textDarkPrimary, shadows: [Shadow(color: Colors.black45, blurRadius: 5)]), 
                         onPressed: () {
                            Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationScreen()));
                         },
@@ -167,13 +170,13 @@ class HomeFeed extends StatelessWidget {
                             );
                           },
                           child: Container(
-                            margin: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                            margin: const EdgeInsets.fromLTRB(AppDimens.paddingMedium, AppDimens.paddingLarge, AppDimens.paddingMedium, AppDimens.paddingSmall),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: AppDimens.paddingMedium),
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [Colors.black, Colors.grey[800]!],
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +187,7 @@ class HomeFeed extends StatelessWidget {
                                     Text(
                                       'FLASH SALE',
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: AppColors.textDarkPrimary,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                         letterSpacing: 2,
@@ -193,17 +196,17 @@ class HomeFeed extends StatelessWidget {
                                     SizedBox(height: 4),
                                     Text(
                                       'Up to 50% Off  •  Ends Soon',
-                                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                                      style: TextStyle(color: AppColors.textDarkSecondary, fontSize: 12),
                                     ),
                                   ],
                                 ),
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: const BoxDecoration(
-                                    color: Colors.white,
+                                    color: AppColors.surfaceLight,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: const Icon(Icons.arrow_forward, size: 20, color: Colors.black),
+                                  child: const Icon(AppIcons.chevronRight, size: 20, color: AppColors.textLightPrimary),
                                 ),
                               ],
                             ),
@@ -212,7 +215,7 @@ class HomeFeed extends StatelessWidget {
                         
                         // Categories
                         Padding(
-                          padding: const EdgeInsets.only(top: 16, bottom: 32),
+                          padding: const EdgeInsets.only(top: AppDimens.paddingMedium, bottom: AppDimens.p32),
                           child: CategoryPills(categories: state.categories),
                         ),
                       ],
@@ -228,10 +231,10 @@ class HomeFeed extends StatelessWidget {
                   SliverToBoxAdapter(
                     child: Container(
                       height: 320, // Increased height for taller cards
-                      margin: const EdgeInsets.only(top: 16, bottom: 32),
+                      margin: const EdgeInsets.only(top: AppDimens.paddingMedium, bottom: AppDimens.p32),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingMedium),
                         itemCount: state.featuredProducts.length,
                         itemBuilder: (context, index) {
                           final product = state.featuredProducts[index];
@@ -258,13 +261,13 @@ class HomeFeed extends StatelessWidget {
                   
                   // Best Sellers Grid
                   SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 100), // Bottom padding for Nav
+                    padding: const EdgeInsets.fromLTRB(AppDimens.paddingMedium, AppDimens.paddingMedium, AppDimens.paddingMedium, 100), // Bottom padding for Nav
                     sliver: SliverGrid(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.65, // Taller aspect ratio for new design
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 24, // More spacing
+                        crossAxisSpacing: AppDimens.paddingMedium,
+                        mainAxisSpacing: AppDimens.paddingLarge, // More spacing
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
@@ -326,7 +329,7 @@ class HomeFeed extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDimens.paddingLarge),
           
           // Categories Shimmer
           SizedBox(

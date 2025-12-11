@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/app_dimens.dart';
+import '../../core/constants/app_colors.dart';
 
 class CustomFilterChip extends StatelessWidget {
   final String label;
@@ -16,12 +18,12 @@ class CustomFilterChip extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
       onTap: onSelected,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: AppDimens.p24, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
+          color: isSelected ? Theme.of(context).primaryColor : AppColors.transparent,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: isSelected ? Theme.of(context).primaryColor : Colors.grey.withValues(alpha: 0.5),
+            color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).disabledColor.withValues(alpha: 0.5),
           ),
         ),
         child: Text(

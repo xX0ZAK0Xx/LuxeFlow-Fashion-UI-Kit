@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_icons.dart';
 
 class ImageCarousel extends StatelessWidget {
   final List<String> imageUrls;
@@ -33,9 +35,9 @@ class ImageCarousel extends StatelessWidget {
                 placeholder: (context, url) => Shimmer.fromColors(
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
-                  child: Container(color: Colors.white),
+                  child: Container(color: AppColors.backgroundLight),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(AppIcons.error),
               ),
             ),
         )).toList(),

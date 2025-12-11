@@ -1,8 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class PaymentScreen extends StatefulWidget {
   final VoidCallback onPaymentSuccess;
@@ -30,21 +32,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(AppDimens.paddingLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text('Payment Method', style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDimens.paddingLarge),
           
           // Payment Options
-          _buildPaymentOption(0, 'Credit Card', Icons.credit_card),
-          const SizedBox(height: 16),
-          _buildPaymentOption(1, 'PayPal', Icons.payment),
-           const SizedBox(height: 16),
-          _buildPaymentOption(2, 'Apple Pay', Icons.apple),
+          _buildPaymentOption(0, 'Credit Card', AppIcons.card),
+          const SizedBox(height: AppDimens.paddingMedium),
+          _buildPaymentOption(1, 'PayPal', AppIcons.payment),
+           const SizedBox(height: AppDimens.paddingMedium),
+          _buildPaymentOption(2, 'Apple Pay', AppIcons.brandApple),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDimens.p32),
           
           // Card Details Form (Only if Card is selected)
           // Card Details Form (Only if Card is selected)
@@ -58,10 +60,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       controller: _cardNumberController,
                       label: 'Card Number',
                       hintText: '0000 0000 0000 0000',
-                      prefixIcon: PhosphorIcons.creditCard(),
+                      prefixIcon: AppIcons.creditCard,
                       keyboardType: TextInputType.number,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppDimens.paddingMedium),
                     Row(
                       children: [
                         Expanded(
@@ -69,17 +71,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             controller: _expiryController,
                             label: 'Expiry Date',
                             hintText: 'MM/YY',
-                            prefixIcon: PhosphorIcons.calendarBlank(),
+                            prefixIcon: AppIcons.calendar,
                             keyboardType: TextInputType.datetime,
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: AppDimens.paddingMedium),
                         Expanded(
                           child: CustomTextField(
                             controller: _cvvController,
                             label: 'CVV',
                             hintText: '123',
-                            prefixIcon: PhosphorIcons.lockKey(),
+                            prefixIcon: AppIcons.password,
                             keyboardType: TextInputType.number,
                             isPassword: true,
                             textInputAction: TextInputAction.done,
@@ -94,13 +96,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
             },
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDimens.p32),
           ElevatedButton(
             onPressed: widget.onPaymentSuccess,
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 54),
-              backgroundColor: Colors.black, // Use theme/primary color appropriately in real app
-              foregroundColor: Colors.white,
+              minimumSize: const Size(double.infinity, AppDimens.buttonHeight),
+              backgroundColor: AppColors.primary, // Use theme/primary color appropriately in real app
+              foregroundColor: AppColors.textDarkPrimary,
             ),
             child: const Text('Place Order'),
           ),
@@ -119,13 +121,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title: Row(
             children: [
               Icon(icon),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppDimens.paddingMedium),
               Text(title),
             ],
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
+            side: BorderSide(color: Theme.of(context).dividerColor),
           ),
           tileColor: Theme.of(context).cardColor,
         ),

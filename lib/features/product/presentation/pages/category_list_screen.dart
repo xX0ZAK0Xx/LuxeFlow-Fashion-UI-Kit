@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'category_products_screen.dart';
 import '../blocs/product_bloc.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class CategoryListScreen extends StatelessWidget {
   const CategoryListScreen({super.key});
@@ -15,11 +17,11 @@ class CategoryListScreen extends StatelessWidget {
           if (state is DashboardLoaded) {
             final categories = state.categories;
             return GridView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppDimens.paddingMedium),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
+                crossAxisSpacing: AppDimens.paddingMedium,
+                mainAxisSpacing: AppDimens.paddingMedium,
                 childAspectRatio: 1.1,
               ),
               itemCount: categories.length,
@@ -36,8 +38,8 @@ class CategoryListScreen extends StatelessWidget {
                    },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+                      borderRadius: BorderRadius.circular(AppDimens.r16),
+                      border: Border.all(color: Theme.of(context).dividerColor),
                       image: DecorationImage(
                         image: CachedNetworkImageProvider(
                           category.imageUrl,
@@ -54,7 +56,7 @@ class CategoryListScreen extends StatelessWidget {
                     child: Text(
                       category.name,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Colors.white,
+                            color: AppColors.textDarkPrimary,
                             fontWeight: FontWeight.bold,
                             shadows: [const Shadow(color: Colors.black45, blurRadius: 4)],
                           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 
 class AddCardSheet extends StatefulWidget {
@@ -104,7 +104,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(PhosphorIcons.contactlessPayment(), color: Colors.white70),
+                          const Icon(AppIcons.contactless, color: Colors.white70),
                           ValueListenableBuilder<String>(
                             valueListenable: _typeNotifier,
                             builder: (context, type, _) => Text(
@@ -171,13 +171,13 @@ class _AddCardSheetState extends State<AddCardSheet> {
                 CustomTextField(
                   controller: _holderController,
                   label: 'Card Holder Name',
-                  prefixIcon: PhosphorIcons.user(),
+                  prefixIcon: AppIcons.person,
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
                   controller: _numberController,
                   label: 'Card Number',
-                  prefixIcon: PhosphorIcons.creditCard(),
+                  prefixIcon: AppIcons.creditCard,
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
@@ -188,7 +188,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                         controller: _expiryController,
                         label: 'Expiry Date',
                         hintText: 'MM/YY',
-                        prefixIcon: PhosphorIcons.calendarBlank(),
+                        prefixIcon: AppIcons.calendar,
                         keyboardType: TextInputType.datetime,
                       ),
                     ),
@@ -197,7 +197,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       child: CustomTextField(
                         controller: _cvvController,
                         label: 'CVV',
-                        prefixIcon: PhosphorIcons.lockKey(),
+                        prefixIcon: AppIcons.password,
                         isPassword: true,
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,

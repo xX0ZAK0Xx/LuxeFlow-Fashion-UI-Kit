@@ -4,6 +4,7 @@ import '../../../../core/widgets/product_card.dart';
 import '../blocs/wishlist_bloc.dart';
 import '../../../product/presentation/pages/product_details_screen.dart';
 import '../../../cart/presentation/blocs/cart_bloc.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -24,7 +25,7 @@ class WishlistScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.favorite_border, size: 64, color: Colors.grey[400]),
+                    Icon(AppIcons.favorite, size: 64, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'Your wishlist is empty',

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/payment_method_entity.dart';
 import '../blocs/payment_bloc.dart';
 import '../widgets/add_card_sheet.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class PaymentMethodsScreen extends StatefulWidget {
   const PaymentMethodsScreen({super.key});
@@ -79,7 +80,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddCardSheet,
-        child: const Icon(Icons.add),
+        child: const Icon(AppIcons.add),
       ),
     );
 
@@ -93,7 +94,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
           color: Colors.red,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: const Icon(AppIcons.delete, color: Colors.white),
       ),
       onDismissed: (_) {
          context.read<PaymentBloc>().add(DeletePaymentMethodEvent(card.id));
@@ -113,7 +114,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.credit_card, color: Colors.blue, size: 28),
+              child: Icon(AppIcons.creditCard, color: Colors.blue, size: 28),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -148,7 +149,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
               )
             else
               IconButton(
-                icon: Icon(Icons.delete_outline, color: Colors.grey[400]),
+                icon: Icon(AppIcons.deleteOutline, color: Colors.grey[400]),
                 onPressed: () {
                    context.read<PaymentBloc>().add(DeletePaymentMethodEvent(card.id));
                 },

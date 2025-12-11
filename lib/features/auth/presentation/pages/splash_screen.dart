@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_images.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_dimens.dart';
 import '../pages/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,11 +51,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(AppImages.appIcon, width: 80, height: 80),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppDimens.paddingLarge),
               Text(
                 'LuxeFlow',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  color: Colors.white,
+                  color: AppColors.textDarkPrimary,
                   letterSpacing: 2,
                 ),
               ),

@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import '../../../../../core/constants/app_icons.dart';
 import '../../../../checkout/presentation/pages/address_screen.dart';
 
 class ShippingAddressesScreen extends StatefulWidget {
@@ -77,7 +79,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(AppIcons.add),
       ),
     );
 
@@ -91,7 +93,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
           color: Colors.red,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: const Icon(AppIcons.delete, color: Colors.white),
       ),
       onDismissed: (_) => _deleteAddress(index),
       child: Container(
@@ -110,7 +112,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
                 color: Colors.orange.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.location_on_rounded, color: Colors.orange, size: 24),
+              child: const Icon(AppIcons.location, color: Colors.orange, size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -152,7 +154,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.delete_outline, size: 20, color: Colors.grey[400]),
+              icon: Icon(AppIcons.deleteOutline, size: 20, color: Colors.grey[400]),
               onPressed: () => _deleteAddress(index),
             ),
           ],

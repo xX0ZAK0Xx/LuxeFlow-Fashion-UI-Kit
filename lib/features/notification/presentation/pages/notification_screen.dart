@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/constants/app_dimens.dart';
 import '../../domain/entities/notification_entity.dart';
 import '../blocs/notification_bloc.dart';
@@ -15,7 +15,7 @@ class NotificationScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(PhosphorIcons.checks()),
+            icon: const Icon(AppIcons.checks),
             onPressed: () {
                context.read<NotificationBloc>().add(MarkAllAsReadEvent());
             },
@@ -55,20 +55,20 @@ class NotificationScreen extends StatelessWidget {
       switch (n.type) {
         case 'shipping':
           iconColor = Colors.blue;
-          iconData = PhosphorIcons.truck(PhosphorIconsStyle.bold);
+          iconData = AppIcons.truck;
           break;
         case 'offer':
           iconColor = Colors.orange;
-          iconData = PhosphorIcons.tag(PhosphorIconsStyle.bold);
+          iconData = AppIcons.tag;
           break;
         case 'payment':
           iconColor = Colors.green;
-          iconData = PhosphorIcons.creditCard(PhosphorIconsStyle.bold);
+          iconData = AppIcons.creditCard;
           break;
         case 'general':
         default:
           iconColor = Colors.purple;
-          iconData = PhosphorIcons.gift(PhosphorIconsStyle.bold);
+          iconData = AppIcons.gift;
           break;
       }
       

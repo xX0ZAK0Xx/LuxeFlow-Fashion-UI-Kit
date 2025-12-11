@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/product_card.dart';
 import '../../../product/presentation/blocs/product_bloc.dart';
 import '../../../../features/product/presentation/pages/product_details_screen.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
@@ -57,51 +59,51 @@ class _OffersScreenState extends State<OffersScreen> {
           // Flash Sale Banner
           SliverToBoxAdapter(
             child: Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(24),
+              margin: const EdgeInsets.all(AppDimens.paddingMedium),
+              padding: const EdgeInsets.all(AppDimens.paddingLarge),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black, Colors.grey[900]!],
+                gradient: const LinearGradient(
+                  colors: [AppColors.primary, AppColors.surfaceDark],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(AppDimens.r16),
               ),
               child: Column(
                 children: [
                    const Text(
                      'FLASH SALE',
                      style: TextStyle(
-                       color: Colors.white,
+                       color: AppColors.textDarkPrimary,
                        fontWeight: FontWeight.bold,
                        fontSize: 24,
                        letterSpacing: 4,
                      ),
                    ),
-                   const SizedBox(height: 8),
+                   const SizedBox(height: AppDimens.paddingSmall),
                    const Text(
                      'Ends in',
-                     style: TextStyle(color: Colors.white70),
+                     style: TextStyle(color: AppColors.textDarkSecondary),
                    ),
-                   const SizedBox(height: 12),
+                   const SizedBox(height: AppDimens.paddingMedium),
                    ValueListenableBuilder<Duration>(
                      valueListenable: _timeLeftNotifier,
                      builder: (context, timeLeft, _) => Text(
                          _formatDuration(timeLeft),
                          style: const TextStyle(
-                           color: Colors.white,
+                           color: AppColors.textDarkPrimary,
                            fontWeight: FontWeight.bold,
                            fontSize: 32,
                            fontFamily: 'monospace'
                          ),
                        ),
                    ),
-                   const SizedBox(height: 16),
+                   const SizedBox(height: AppDimens.paddingMedium),
                    ElevatedButton(
                      onPressed: () {},
                      style: ElevatedButton.styleFrom(
-                       backgroundColor: Colors.white,
-                       foregroundColor: Colors.black,
+                       backgroundColor: AppColors.surfaceLight,
+                       foregroundColor: AppColors.textLightPrimary,
                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                      ),
                      child: const Text('Shop Now'),
@@ -113,7 +115,7 @@ class _OffersScreenState extends State<OffersScreen> {
 
           // Grid
            SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppDimens.paddingMedium),
             sliver: BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
                 if (state is DashboardLoaded) {
@@ -124,8 +126,8 @@ class _OffersScreenState extends State<OffersScreen> {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.65, // Taller cards
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
+                      mainAxisSpacing: AppDimens.paddingMedium,
+                      crossAxisSpacing: AppDimens.paddingMedium,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {

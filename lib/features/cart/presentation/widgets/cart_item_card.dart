@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entities/cart_item_entity.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItemEntity item;
@@ -18,11 +21,11 @@ class CartItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: AppDimens.paddingMedium, vertical: AppDimens.paddingSmall),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+        borderRadius: BorderRadius.circular(AppDimens.r16),
+        border: Border.all(color: Theme.of(context).dividerColor),
         boxShadow: const [], // Removed shadow
       ),
       child: IntrinsicHeight(
@@ -32,8 +35,8 @@ class CartItemCard extends StatelessWidget {
             // Image
             ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
+                topLeft: Radius.circular(AppDimens.r16),
+                bottomLeft: Radius.circular(AppDimens.r16),
               ),
               child: CachedNetworkImage(
                 imageUrl: item.product.imageUrl,
@@ -45,7 +48,7 @@ class CartItemCard extends StatelessWidget {
             
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(AppDimens.radiusMedium),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,23 +71,23 @@ class CartItemCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.close, size: 20, color: Colors.grey[400]),
+                            child: Icon(AppIcons.close, size: 20, color: Theme.of(context).disabledColor),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppDimens.p4),
                     
                     // Product Subtitle/Specs
                     if (item.selectedColor != null || item.selectedSize != null)
                       Text(
                         '${item.selectedColor ?? ''}${item.selectedColor != null && item.selectedSize != null ? ' | ' : ''}${item.selectedSize ?? ''}', 
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.textLightSecondary),
                       )
                     else 
                       Text(
                          'Fashion', // Generic fallback
-                         style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.textLightSecondary),
                       ),
 
                     const Spacer(),
@@ -102,20 +105,20 @@ class CartItemCard extends StatelessWidget {
                         
                         DecoratedBox(
                           decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             children: [
-                              _buildQtyBtn(Icons.remove, onDecrement),
+                              _buildQtyBtn(AppIcons.remove, onDecrement),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingSmall),
                                 child: Text(
                                   '${item.quantity}',
                                   style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              _buildQtyBtn(Icons.add, onIncrement),
+                              _buildQtyBtn(AppIcons.add, onIncrement),
                             ],
                           ),
                         ),
@@ -137,7 +140,7 @@ class CartItemCard extends StatelessWidget {
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, size: 16, color: Colors.black),
+        child: Icon(icon, size: AppDimens.iconSmall, color: AppColors.textLightPrimary),
       ),
     );
 }

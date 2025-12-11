@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class FilterModal extends StatefulWidget {
   const FilterModal({super.key});
@@ -36,10 +37,10 @@ class _FilterModalState extends State<FilterModal> {
 
   @override
   Widget build(BuildContext context) => Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(AppDimens.paddingLarge),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(AppDimens.p32)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
@@ -56,12 +57,12 @@ class _FilterModalState extends State<FilterModal> {
               width: 50,
               height: 5,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Theme.of(context).dividerColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppDimens.paddingLarge),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -151,7 +152,7 @@ class _FilterModalState extends State<FilterModal> {
                         color: colorValue,
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: isSelected ? AppColors.primary : Colors.grey.withValues(alpha: 0.3),
+                          color: isSelected ? AppColors.primary : Theme.of(context).dividerColor,
                           width: isSelected ? 2 : 1,
                         ),
                         boxShadow: [
@@ -164,9 +165,9 @@ class _FilterModalState extends State<FilterModal> {
                         ],
                       ),
                       child: isSelected && colorValue == Colors.white 
-                          ? const Icon(Icons.check, size: 20, color: Colors.black)
+                          ? const Icon(AppIcons.check, size: 20, color: AppColors.textLightPrimary)
                           : isSelected 
-                            ? const Icon(Icons.check, size: 20, color: Colors.white)
+                            ? const Icon(AppIcons.check, size: 20, color: AppColors.textDarkPrimary)
                             : null,
                     ),
                   );
@@ -202,7 +203,7 @@ class _FilterModalState extends State<FilterModal> {
                         color: isSelected ? AppColors.primary : Colors.white,
                         borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
                         border: Border.all(
-                          color: isSelected ? AppColors.primary : Colors.grey.shade300,
+                          color: isSelected ? AppColors.primary : Theme.of(context).dividerColor,
                         ),
                         boxShadow: isSelected ? [
                           BoxShadow(
@@ -215,7 +216,7 @@ class _FilterModalState extends State<FilterModal> {
                       child: Text(
                         size,
                         style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black87,
+                          color: isSelected ? AppColors.textDarkPrimary : AppColors.textLightPrimary,
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                       ),
@@ -235,7 +236,7 @@ class _FilterModalState extends State<FilterModal> {
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: AppColors.textDarkPrimary,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
@@ -244,7 +245,7 @@ class _FilterModalState extends State<FilterModal> {
               child: const Text('Apply Filters', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppDimens.paddingMedium),
         ],
       ),
     );

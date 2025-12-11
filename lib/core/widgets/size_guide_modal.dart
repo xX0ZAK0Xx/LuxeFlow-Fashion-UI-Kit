@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/app_dimens.dart';
 
 class SizeGuideModal extends StatelessWidget {
   const SizeGuideModal({super.key});
@@ -6,12 +7,12 @@ class SizeGuideModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Dialog(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(AppDimens.paddingMedium),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Size Guide', style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppDimens.paddingMedium),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: DataTable(
@@ -49,7 +50,7 @@ class SizeGuideModal extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppDimens.paddingMedium),
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Close'),

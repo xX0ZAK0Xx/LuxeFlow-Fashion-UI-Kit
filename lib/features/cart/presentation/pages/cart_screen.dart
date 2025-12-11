@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../checkout/presentation/pages/checkout_screen.dart';
 import '../blocs/cart_bloc.dart';
 import '../widgets/cart_item_card.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -31,8 +34,8 @@ class CartScreen extends StatelessWidget {
                         background: Container(
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 20),
-                          color: Colors.red,
-                          child: const Icon(Icons.delete, color: Colors.white),
+                          color: AppColors.error,
+                          child: const Icon(AppIcons.delete, color: Colors.white),
                         ),
                         onDismissed: (direction) {
                           context.read<CartBloc>().add(RemoveProductFromCart(item.product));
@@ -58,10 +61,10 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(AppDimens.paddingLarge),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(AppDimens.r24)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.05),
@@ -86,7 +89,7 @@ class CartScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: AppDimens.paddingLarge),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -95,8 +98,8 @@ class CartScreen extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 54),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          minimumSize: const Size(double.infinity, AppDimens.buttonHeight),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimens.r16)),
                         ),
                         child: const Text('Checkout'),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class OrderTimeline extends StatelessWidget {
   final String status;
@@ -26,7 +27,7 @@ class OrderTimeline extends StatelessWidget {
         ),
         child: const Row(
           children: [
-             Icon(Icons.cancel, color: Colors.red),
+             Icon(AppIcons.cancel, color: Colors.red),
              SizedBox(width: 12),
              Text('Order Cancelled', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
           ],
@@ -53,7 +54,7 @@ class OrderTimeline extends StatelessWidget {
                     border: isCompleted ? null : Border.all(color: Colors.grey[400]!),
                   ),
                   child: isCompleted 
-                    ? const Icon(Icons.check, size: 16, color: Colors.white)
+                    ? const Icon(AppIcons.check, size: 16, color: Colors.white)
                     : null,
                 ),
                 if (!isLast)

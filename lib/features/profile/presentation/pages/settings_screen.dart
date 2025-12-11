@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/theme/bloc/theme_bloc.dart';
 import 'settings/notification_settings_screen.dart';
 import 'settings/privacy_policy_screen.dart';
@@ -23,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
           const Divider(),
           ListTile(
             title: const Text('Notifications'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            trailing: const Icon(AppIcons.chevronRight, size: AppDimens.iconSmall),
             onTap: () {
                Navigator.push(
                   context,
@@ -33,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Privacy Policy'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            trailing: const Icon(AppIcons.chevronRight, size: AppDimens.iconSmall),
             onTap: () {
                Navigator.push(
                   context,
@@ -43,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           ListTile(
              title: const Text('Terms of Service'),
-             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+             trailing: const Icon(AppIcons.chevronRight, size: AppDimens.iconSmall),
              onTap: () {
                 Navigator.push(
                   context,

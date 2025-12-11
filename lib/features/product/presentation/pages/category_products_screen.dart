@@ -4,6 +4,8 @@ import '../../../../core/widgets/product_card.dart';
 import '../../domain/entities/category_entity.dart';
 import '../blocs/product_bloc.dart';
 import '../pages/product_details_screen.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class CategoryProductsScreen extends StatelessWidget {
   final CategoryEntity category;
@@ -16,7 +18,7 @@ class CategoryProductsScreen extends StatelessWidget {
         title: Text(category.name),
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list),
+            icon: const Icon(AppIcons.filter),
             onPressed: () {
               // Show filter modal
             },
@@ -37,8 +39,8 @@ class CategoryProductsScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.shopping_bag_outlined, size: 64, color: Colors.grey),
-                    const SizedBox(height: 16),
+                    const Icon(AppIcons.cart, size: 64, color: Colors.grey),
+                    const SizedBox(height: AppDimens.paddingMedium),
                     Text('No products found in ${category.name}', style: const TextStyle(color: Colors.grey)),
                   ],
                 ),
@@ -46,13 +48,13 @@ class CategoryProductsScreen extends StatelessWidget {
             }
 
             return GridView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppDimens.paddingMedium),
               itemCount: categoryProducts.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                  crossAxisCount: 2,
                  childAspectRatio: 0.58,
-                 crossAxisSpacing: 16,
-                 mainAxisSpacing: 16,
+                 crossAxisSpacing: AppDimens.paddingMedium,
+                 mainAxisSpacing: AppDimens.paddingMedium,
               ),
               itemBuilder: (context, index) {
                 final product = categoryProducts[index];

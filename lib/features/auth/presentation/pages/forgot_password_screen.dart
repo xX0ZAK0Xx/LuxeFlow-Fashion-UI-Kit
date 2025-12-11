@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -25,13 +25,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(PhosphorIcons.arrowLeft(), color: Theme.of(context).colorScheme.onSurface),
+          icon: Icon(AppIcons.back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(AppDimens.paddingLarge),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -43,24 +43,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppDimens.paddingMedium),
               Text(
                 'Enter your email address and we will send you a link to reset your password.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
               ),
-              const SizedBox(height: 48),
+              const SizedBox(height: AppDimens.p48),
               
               CustomTextField(
                 label: 'Email Address',
-                prefixIcon: PhosphorIcons.envelopeSimple(),
+                prefixIcon: AppIcons.email,
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.done,
               ),
               
-              const SizedBox(height: 32),
+              const SizedBox(height: AppDimens.p32),
               
               ElevatedButton(
                 onPressed: () {

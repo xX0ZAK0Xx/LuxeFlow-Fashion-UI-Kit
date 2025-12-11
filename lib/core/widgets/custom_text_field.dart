@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../constants/app_icons.dart';
 
+import '../constants/app_dimens.dart';
 class CustomTextField extends StatefulWidget {
   final String label;
   final String? hintText;
@@ -69,15 +70,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 widget.label,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppDimens.paddingSmall),
             ],
             DecoratedBox(
               decoration: BoxDecoration(
-                color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.grey.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
+                color: Theme.of(context).inputDecorationTheme.fillColor ?? Theme.of(context).disabledColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
               ),
               child: ValueListenableBuilder<bool>(
                 valueListenable: _obscureTextNotifier,
@@ -94,26 +95,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
                     decoration: InputDecoration(
                       hintText: widget.hintText,
-                      hintStyle: TextStyle(color: Colors.grey[500]),
+                      hintStyle: TextStyle(color: Theme.of(context).hintColor),
                       prefixIcon: widget.prefixIcon != null
                           ? Icon(
                               widget.prefixIcon,
-                              color: isFocused ? Theme.of(context).primaryColor : Colors.grey[400],
+                              color: isFocused ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
                             )
                           : null,
                       suffixIcon: widget.suffix ??
                           (widget.isPassword
                               ? IconButton(
                                   icon: Icon(
-                                    obscureText ? PhosphorIcons.eye() : PhosphorIcons.eyeSlash(),
-                                    color: Colors.grey[400],
+                                    obscureText ? AppIcons.eye : AppIcons.eyeSlash,
+                                    color: Theme.of(context).disabledColor,
                                   ),
                                   onPressed: () {
                                     _obscureTextNotifier.value = !obscureText;
                                   },
                                 )
                               : (widget.suffixIcon != null
-                                  ? Icon(widget.suffixIcon, color: Colors.grey[400])
+                                  ? Icon(widget.suffixIcon, color: Theme.of(context).disabledColor)
                                   : null)),
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
@@ -121,7 +122,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       errorBorder: InputBorder.none,
                       disabledBorder: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
+                        horizontal: AppDimens.paddingMedium,
                         vertical: 14,
                       ),
                     ),

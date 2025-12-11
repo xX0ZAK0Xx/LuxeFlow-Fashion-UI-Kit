@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../widgets/filter_modal.dart';
 import '../../../../core/widgets/product_card.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../blocs/product_bloc.dart';
 import 'product_details_screen.dart';
 import '../../../../features/cart/presentation/blocs/cart_bloc.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -30,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: const Text('Discover'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.tune),
+            icon: const Icon(AppIcons.adjustments),
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -46,16 +48,16 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(AppDimens.paddingMedium),
               child: CustomTextField(
                 controller: _searchController,
                 hintText: 'Search products, brands...',
-                prefixIcon: PhosphorIcons.magnifyingGlass(),
+                prefixIcon: AppIcons.search,
                 suffix: ValueListenableBuilder<TextEditingValue>(
                   valueListenable: _searchController,
                   builder: (context, value, child) => value.text.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(Icons.clear, color: Colors.grey),
+                            icon: Icon(AppIcons.close, color: Theme.of(context).disabledColor),
                             onPressed: () {
                               _searchController.clear();
                               context.read<ProductBloc>().add(const SearchProducts(''));
@@ -84,12 +86,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
-                            const SizedBox(height: 16),
+                            Icon(AppIcons.searchOff, size: 64, color: Theme.of(context).disabledColor),
+                            const SizedBox(height: AppDimens.paddingMedium),
                             Text(
                               'No results found',
                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.grey,
+                                    color: Theme.of(context).disabledColor,
                                   ),
                             ),
                           ],
@@ -97,12 +99,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       );
                     }
                     return GridView.builder(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(AppDimens.paddingMedium),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.7,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
+                        crossAxisSpacing: AppDimens.paddingMedium,
+                        mainAxisSpacing: AppDimens.paddingMedium,
                       ),
                       itemCount: state.products.length,
                       itemBuilder: (context, index) {
@@ -135,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   // Default state (Suggestions)
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(AppDimens.paddingMedium),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -143,15 +145,15 @@ class _SearchScreenState extends State<SearchScreen> {
                             'Recent Searches',
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: AppDimens.paddingMedium),
                           Wrap(
                             spacing: 8,
-                            runSpacing: 8,
+                            runSpacing: AppDimens.paddingSmall,
                             children: ['Winter Coat', 'Black Dress', 'Leather Boots', 'Scarf'].map((search) => ActionChip(
                                 label: Text(search),
-                                avatar: const Icon(Icons.history, size: 16, color: Colors.grey),
+                                avatar: const Icon(AppIcons.history, size: AppDimens.iconSmall, color: Colors.grey),
                                 backgroundColor: Theme.of(context).cardColor,
-                                side: BorderSide(color: Colors.grey.shade200),
+                                side: BorderSide(color: Theme.of(context).dividerColor),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 onPressed: () {
                                   _searchController.text = search;
@@ -160,13 +162,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                 },
                               )).toList(),
                           ),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: AppDimens.paddingLarge),
                           
                           Text(
                             'Popular Products',
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: AppDimens.paddingMedium),
                           SizedBox( 
                              height: 320,
                              child: state is DashboardLoaded 
@@ -178,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   final heroTag = 'search_popular_${product.id}';
                                   return Container(
                                    width: 180,
-                                   margin: const EdgeInsets.only(right: 12),
+                                   margin: const EdgeInsets.only(right: AppDimens.radiusMedium),
                                    child: ProductCard(
                                      product: product,
                                      heroTag: heroTag,
@@ -199,23 +201,23 @@ class _SearchScreenState extends State<SearchScreen> {
                              : const Center(child: CircularProgressIndicator()),
                           ),
 
-                          const SizedBox(height: 24),
+                          const SizedBox(height: AppDimens.paddingLarge),
                           Text(
                             'Recommended for You',
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: AppDimens.paddingMedium),
                           // List of text links or categories
                            Column(
                              children: ['New Arrivals in Shoes', 'Best Sellers in Accessories', 'Sale Items'].map((item) => ListTile(
                                  contentPadding: EdgeInsets.zero,
                                  leading: Container(
-                                   padding: const EdgeInsets.all(8),
-                                   decoration: BoxDecoration(color: Colors.grey[100], shape: BoxShape.circle),
-                                   child: const Icon(Icons.trending_up, size: 20, color: Colors.blue),
+                                   padding: const EdgeInsets.all(AppDimens.paddingSmall),
+                                   decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest, shape: BoxShape.circle),
+                                   child: const Icon(AppIcons.trendingUp, size: 20, color: AppColors.info),
                                  ),
                                  title: Text(item, style: const TextStyle(fontWeight: FontWeight.w500)),
-                                 trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
+                                 trailing: const Icon(AppIcons.chevronRight, size: 14, color: Colors.grey),
                                  onTap: () {},
                                )).toList(),
                            ),

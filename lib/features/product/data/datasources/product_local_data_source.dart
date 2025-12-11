@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+
 import '../../domain/entities/category_entity.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../domain/entities/product_entity.dart';
 
 abstract class ProductLocalDataSource {
@@ -12,16 +13,16 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   Future<List<CategoryEntity>> getCategories() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return const [
-      CategoryEntity(id: '1', name: 'New Arrivals', imageUrl: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg', icon: Icons.new_releases),
-      CategoryEntity(id: '2', name: 'Clothes', imageUrl: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg', icon: Icons.checkroom),
-      CategoryEntity(id: '3', name: 'Bags', imageUrl: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg', icon: Icons.shopping_bag),
-      CategoryEntity(id: '4', name: 'Shoes', imageUrl: 'https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg', icon: Icons.roller_skating),
-      CategoryEntity(id: '5', name: 'Electronics', imageUrl: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg', icon: Icons.devices),
-      CategoryEntity(id: '6', name: 'Jewelry', imageUrl: 'https://images.pexels.com/photos/265906/pexels-photo-265906.jpeg', icon: Icons.diamond),
-      CategoryEntity(id: '7', name: 'Dresses', imageUrl: 'https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg', icon: Icons.woman),
-      CategoryEntity(id: '8', name: 'Jackets', imageUrl: 'https://images.pexels.com/photos/16170/pexels-photo.jpg', icon: Icons.checkroom_outlined),
-      CategoryEntity(id: '9', name: 'Activewear', imageUrl: 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg', icon: Icons.fitness_center),
-      CategoryEntity(id: '10', name: 'Watches', imageUrl: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg', icon: Icons.watch),
+      CategoryEntity(id: '1', name: 'New Arrivals', imageUrl: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg', icon: AppIcons.newReleases),
+      CategoryEntity(id: '2', name: 'Clothes', imageUrl: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg', icon: AppIcons.checkroom),
+      CategoryEntity(id: '3', name: 'Bags', imageUrl: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg', icon: AppIcons.cartActive),
+      CategoryEntity(id: '4', name: 'Shoes', imageUrl: 'https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg', icon: AppIcons.rollerSkating),
+      CategoryEntity(id: '5', name: 'Electronics', imageUrl: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg', icon: AppIcons.devices),
+      CategoryEntity(id: '6', name: 'Jewelry', imageUrl: 'https://images.pexels.com/photos/265906/pexels-photo-265906.jpeg', icon: AppIcons.diamond),
+      CategoryEntity(id: '7', name: 'Dresses', imageUrl: 'https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg', icon: AppIcons.woman),
+      CategoryEntity(id: '8', name: 'Jackets', imageUrl: 'https://images.pexels.com/photos/16170/pexels-photo.jpg', icon: AppIcons.checkroomOutline),
+      CategoryEntity(id: '9', name: 'Activewear', imageUrl: 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg', icon: AppIcons.fitness),
+      CategoryEntity(id: '10', name: 'Watches', imageUrl: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg', icon: AppIcons.watch),
     ];
   }
 

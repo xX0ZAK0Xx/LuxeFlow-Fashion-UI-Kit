@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'order_details_screen.dart';
+import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -8,17 +10,17 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Mock Orders
     final orders = [
-      {'id': '#12345', 'date': 'Dec 12, 2023', 'status': 'Delivered', 'total': '\$120.00', 'statusColor': Colors.green},
-      {'id': '#12346', 'date': 'Dec 15, 2023', 'status': 'Processing', 'total': '\$85.50', 'statusColor': Colors.orange},
-      {'id': '#12347', 'date': 'Dec 20, 2023', 'status': 'Cancelled', 'total': '\$45.00', 'statusColor': Colors.red},
+      {'id': '#12345', 'date': 'Dec 12, 2023', 'status': 'Delivered', 'total': '\$120.00', 'statusColor': AppColors.success},
+      {'id': '#12346', 'date': 'Dec 15, 2023', 'status': 'Processing', 'total': '\$85.50', 'statusColor': AppColors.warning},
+      {'id': '#12347', 'date': 'Dec 20, 2023', 'status': 'Cancelled', 'total': '\$45.00', 'statusColor': AppColors.error},
     ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('My Orders')),
       body: ListView.separated(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppDimens.paddingMedium),
         itemCount: orders.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        separatorBuilder: (context, index) => const SizedBox(height: AppDimens.paddingMedium),
         itemBuilder: (context, index) {
           final order = orders[index];
           return GestureDetector(
@@ -31,13 +33,13 @@ class OrderHistoryScreen extends StatelessWidget {
               );
             },
             child: Container(
-              margin: const EdgeInsets.only(bottom: 8), 
+              margin: const EdgeInsets.only(bottom: AppDimens.paddingSmall), 
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+                borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
+                border: Border.all(color: Theme.of(context).dividerColor),
               ),
-              padding: const EdgeInsets.all(20), 
+              padding: const EdgeInsets.all(AppDimens.p24), 
               child: Column(
                 children: [
                   Row(
@@ -52,15 +54,15 @@ class OrderHistoryScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: AppDimens.p4),
                            Text(
                             order['date'] as String,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.textLightSecondary),
                            ),
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: AppDimens.radiusMedium, vertical: 6),
                         decoration: BoxDecoration(
                           color: (order['statusColor'] as Color).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
@@ -77,7 +79,7 @@ class OrderHistoryScreen extends StatelessWidget {
                     ],
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
                     child: Divider(height: 1),
                   ),
                   Row(
@@ -85,7 +87,7 @@ class OrderHistoryScreen extends StatelessWidget {
                     children: [
                       Text(
                         '${(index + 2)} Items', // Mock items count
-                         style: const TextStyle(color: Colors.grey, fontSize: 13),
+                         style: const TextStyle(color: AppColors.textLightSecondary, fontSize: 13),
                       ),
                       Text(
                         order['total'] as String,

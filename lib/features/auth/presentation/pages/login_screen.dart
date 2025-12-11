@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_images.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/social_login_button.dart';
 import '../../../home/presentation/pages/home_screen.dart';
@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   ),
                   
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingLarge),
                     child: FadeTransition(
                       opacity: _fadeAnimation,
                       child: Form(
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: AppDimens.paddingSmall),
                             Text(
                               'Welcome back, trendsetter.',
                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -120,21 +120,21 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   ),
                               textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 48),
+                            const SizedBox(height: AppDimens.p48),
 
                             // Fields
                             CustomTextField(
                               label: 'Email Address',
-                              prefixIcon: PhosphorIcons.envelopeSimple(),
+                              prefixIcon: AppIcons.email,
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) => 
                                 value!.isEmpty ? 'Please enter your email' : null,
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: AppDimens.paddingMedium),
                             CustomTextField(
                               label: 'Password',
-                              prefixIcon: PhosphorIcons.lockKey(),
+                              prefixIcon: AppIcons.password,
                               controller: _passwordController,
                               isPassword: true,
                               textInputAction: TextInputAction.done,
@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: AppDimens.paddingLarge),
 
                             // Login Button
                             if (state is AuthLoading)
@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 ),
                               ),
                             
-                            const SizedBox(height: 32),
+                            const SizedBox(height: AppDimens.p32),
                              Row(
                               children: [
                                 Expanded(child: Divider(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4))),
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 Expanded(child: Divider(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4))),
                               ],
                             ),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: AppDimens.paddingLarge),
                             
                             // Social Buttons
                             Row(
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     onPressed: () {},
                                   ),
                                 ),
-                                const SizedBox(width: 16),
+                                const SizedBox(width: AppDimens.paddingMedium),
                                 Expanded(
                                   child: SocialLoginButton(
                                     label: 'Apple',
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: AppDimens.paddingLarge),
                           ],
                         ),
                       ),

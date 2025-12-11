@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/constants/app_dimens.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -53,13 +53,13 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(PhosphorIcons.arrowLeft(), color: Theme.of(context).colorScheme.onSurface),
+          icon: Icon(AppIcons.back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingLarge),
           child: FadeTransition(
             opacity: _fadeAnimation,
             child: SlideTransition(
@@ -77,41 +77,41 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: AppDimens.paddingSmall),
                     Text(
                       'Join the exclusive community.',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: AppDimens.p32),
                     
                     CustomTextField(
                       label: 'Full Name',
-                      prefixIcon: PhosphorIcons.user(),
+                      prefixIcon: AppIcons.person,
                       controller: _nameController,
                       validator: (value) => value!.isEmpty ? 'Enter your name' : null,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppDimens.paddingMedium),
                     CustomTextField(
                       label: 'Email Address',
-                      prefixIcon: PhosphorIcons.envelopeSimple(),
+                      prefixIcon: AppIcons.email,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) => value!.isEmpty ? 'Enter your email' : null,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppDimens.paddingMedium),
                     CustomTextField(
                       label: 'Password',
-                      prefixIcon: PhosphorIcons.lockKey(),
+                      prefixIcon: AppIcons.password,
                       controller: _passwordController,
                       isPassword: true,
                       validator: (value) => value!.length < 6 ? 'Min 6 characters' : null,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: AppDimens.paddingMedium),
                     CustomTextField(
                       label: 'Confirm Password',
-                      prefixIcon: PhosphorIcons.lockKey(),
+                      prefixIcon: AppIcons.password,
                       controller: _confirmPasswordController,
                       isPassword: true,
                       textInputAction: TextInputAction.done,
@@ -121,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
                       },
                     ),
                     
-                    const SizedBox(height: 48),
+                    const SizedBox(height: AppDimens.p48),
 
                     ElevatedButton(
                       onPressed: () {
@@ -145,11 +145,11 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
                       child: const Text('Sign Up', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
                     
-                    const SizedBox(height: 24),
+                    const SizedBox(height: AppDimens.p24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Already have an account?", style: TextStyle(color: Colors.grey.shade600)),
+                        Text("Already have an account?", style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6))),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/app_dimens.dart';
+import '../constants/app_icons.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final String label;
@@ -18,7 +19,7 @@ class SocialLoginButton extends StatelessWidget {
       onTap: onPressed,
       borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: AppDimens.paddingMedium),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
           // border: Border.all(color: Colors.grey.shade300),
@@ -29,7 +30,7 @@ class SocialLoginButton extends StatelessWidget {
           children: [
             // Assuming we have assets, but for now using Icons if asset logic not fully set up
             // Or typically simple image asset
-             Image.asset(assetPath, width: 24, height: 24, errorBuilder: (c,o,s) => const Icon(Icons.public, size: 24)),
+             Image.asset(assetPath, width: AppDimens.iconMedium, height: AppDimens.iconMedium, errorBuilder: (c,o,s) => const Icon(AppIcons.socialGlobal, size: AppDimens.iconMedium)),
             const SizedBox(width: 12),
             Text(
               label,

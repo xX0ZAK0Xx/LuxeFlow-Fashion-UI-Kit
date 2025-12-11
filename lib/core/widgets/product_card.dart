@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../features/product/domain/entities/product_entity.dart';
+import '../constants/app_dimens.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_icons.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -23,8 +26,8 @@ class ProductCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+          borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
+          border: Border.all(color: Theme.of(context).dividerColor),
           boxShadow: const [], // Removed shadow
         ),
         child: Column(
@@ -36,7 +39,7 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 children: [
                    ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(AppDimens.radiusMedium)),
                     child: Hero(
                       tag: heroTag ?? 'product_image_${product.id}',
                       child: CachedNetworkImage(
@@ -48,9 +51,9 @@ class ProductCard extends StatelessWidget {
                         placeholder: (context, url) => Shimmer.fromColors(
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
-                          child: Container(color: Colors.white),
+                          child: Container(color: AppColors.backgroundLight),
                         ),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) => const Icon(AppIcons.error),
                       ),
                     ),
                   ),
@@ -64,7 +67,7 @@ class ProductCard extends StatelessWidget {
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text('NEW', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                        child: const Text('NEW', style: TextStyle(color: AppColors.textDarkPrimary, fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ),
                   if (product.isSale)
@@ -74,10 +77,10 @@ class ProductCard extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE53935),
+                          color: AppColors.error,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text('-20%', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)), // Mock discount
+                        child: const Text('-20%', style: TextStyle(color: AppColors.textDarkPrimary, fontSize: 10, fontWeight: FontWeight.bold)), // Mock discount
                       ),
                     ),
                     
@@ -91,7 +94,7 @@ class ProductCard extends StatelessWidget {
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.backgroundLight,
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -101,7 +104,7 @@ class ProductCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: const Icon(Icons.add, color: Colors.black, size: 20),
+                        child: const Icon(AppIcons.add, color: AppColors.textLightPrimary, size: AppDimens.iconSmall),
                       ),
                     ),
                   ),
@@ -111,7 +114,7 @@ class ProductCard extends StatelessWidget {
             
             // Details Section
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(AppDimens.radiusMedium),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -129,9 +132,9 @@ class ProductCard extends StatelessWidget {
                   // Category / Brand Mock
                   Text(
                     'Luxe Brand', 
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.textLightSecondary),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppDimens.paddingSmall),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,8 +148,8 @@ class ProductCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Icon(Icons.star, size: 14, color: Colors.amber),
-                          const SizedBox(width: 4),
+                          const Icon(AppIcons.star, size: 14, color: Colors.amber),
+                          const SizedBox(width: AppDimens.p4),
                           Text(
                             product.rating.toString(),
                              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),

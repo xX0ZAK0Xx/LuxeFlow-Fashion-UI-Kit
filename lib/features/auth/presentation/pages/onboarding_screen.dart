@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_dimens.dart';
 import 'login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -54,8 +55,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           Positioned(
             bottom: 60,
-            left: 20,
-            right: 20,
+            left: AppDimens.paddingLarge,
+            right: AppDimens.paddingLarge,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,11 +70,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             (index) => AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               margin: const EdgeInsets.only(right: 6),
-                              height: 8,
-                              width: currentPage == index ? 24 : 8,
+                              height: AppDimens.p8,
+                              width: currentPage == index ? 24 : AppDimens.p8,
                               decoration: BoxDecoration(
-                                color: currentPage == index ? AppColors.secondary : Colors.grey,
-                                borderRadius: BorderRadius.circular(4),
+                                color: currentPage == index ? AppColors.secondary : Theme.of(context).disabledColor,
+                                borderRadius: BorderRadius.circular(AppDimens.r4),
                               ),
                             ),
                           ),
@@ -116,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(AppDimens.p32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,12 +125,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const Spacer(),
             Text(
               title,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColors.textDarkPrimary),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppDimens.paddingMedium),
             Text(
               text,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white70),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.textDarkSecondary),
             ),
             const Spacer(),
             const SizedBox(height: 60),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_dimens.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_icons.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -32,10 +34,10 @@ class CustomBottomNav extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(context, 0, Icons.home_outlined, Icons.home, 'Home'),
-            _buildNavItem(context, 1, Icons.search_outlined, Icons.search, 'Explore'),
-            _buildNavItem(context, 2, Icons.shopping_bag_outlined, Icons.shopping_bag, 'Cart', count: cartCount),
-            _buildNavItem(context, 3, Icons.person_outline, Icons.person, 'Profile'),
+            _buildNavItem(context, 0, AppIcons.home, AppIcons.homeActive, 'Home'),
+            _buildNavItem(context, 1, AppIcons.explore, AppIcons.exploreActive, 'Explore'),
+            _buildNavItem(context, 2, AppIcons.cart, AppIcons.cartActive, 'Cart', count: cartCount),
+            _buildNavItem(context, 3, AppIcons.profile, AppIcons.profileActive, 'Profile'),
           ],
         ),
       ),
@@ -54,7 +56,7 @@ class CustomBottomNav extends StatelessWidget {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).primaryColor.withValues(alpha: 0.1) : Colors.transparent,
+          color: isSelected ? Theme.of(context).primaryColor.withValues(alpha: 0.1) : AppColors.transparent,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -66,18 +68,18 @@ class CustomBottomNav extends StatelessWidget {
                 backgroundColor: Theme.of(context).primaryColor,
                 child: Icon(
                   isSelected ? activeIcon : icon,
-                  color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-                  size: 24,
+                  color: isSelected ? Theme.of(context).primaryColor : AppColors.textLightSecondary,
+                  size: AppDimens.iconMedium,
                 ),
               )
             else
               Icon(
                 isSelected ? activeIcon : icon,
-                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-                size: 24,
+                color: isSelected ? Theme.of(context).primaryColor : AppColors.textLightSecondary,
+                size: AppDimens.iconMedium,
               ),
             if (isSelected) ...[
-              const SizedBox(width: 8),
+              const SizedBox(width: AppDimens.paddingSmall),
               Text(
                 label,
                 style: TextStyle(

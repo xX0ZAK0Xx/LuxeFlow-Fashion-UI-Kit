@@ -8,7 +8,8 @@ import '../../../../core/widgets/size_guide_modal.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../../../features/cart/presentation/blocs/cart_bloc.dart';
 import '../../../wishlist/presentation/blocs/wishlist_bloc.dart';
-
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_icons.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity product;
@@ -51,12 +52,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(AppIcons.back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share, color: Colors.black),
+            icon: Icon(AppIcons.share, color: Theme.of(context).colorScheme.onSurface),
             onPressed: () {},
           ),
           IconButton(
@@ -67,8 +68,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                      isLiked = state.wishlist.any((p) => p.id == widget.product.id);
                    }
                    return Icon(
-                     isLiked ? Icons.favorite : Icons.favorite_border,
-                     color: isLiked ? Colors.red : Colors.black,
+                     isLiked ? AppIcons.favoriteActive : AppIcons.favorite,
+                     color: isLiked ? AppColors.error : Theme.of(context).colorScheme.onSurface,
                    );
                 },
              ),
@@ -99,9 +100,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     transform: Matrix4.translationValues(0.0, -20.0, 0.0),
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(AppDimens.r24)),
                     ),
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(AppDimens.p24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -125,14 +126,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: AppDimens.paddingSmall),
                         const Row(
                           children: [
-                            Icon(Icons.star, color: Colors.amber, size: 20),
+                            Icon(AppIcons.star, color: Colors.amber, size: 20),
                             Text(' 4.8 (120 reviews)', style: TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppDimens.paddingMedium),
                         
                         // Size Selector
                         Row(
@@ -156,7 +157,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             valueListenable: _selectedSizeNotifier,
                             builder: (context, selectedSize, _) => Row(
                                 children: ['S', 'M', 'L', 'XL'].map((size) => Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
+                                    padding: const EdgeInsets.only(right: AppDimens.paddingSmall),
                                     child: CustomFilterChip(
                                       label: size,
                                       isSelected: selectedSize == size,
@@ -168,16 +169,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppDimens.paddingMedium),
 
                         // Color Selector
                         Text('Select Color', style: Theme.of(context).textTheme.titleMedium),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: AppDimens.paddingMedium),
                         ValueListenableBuilder<String>(
                           valueListenable: _selectedColorNotifier,
                           builder: (context, selectedColor, _) => Row(
                               children: ['Black', 'Blue', 'Beige'].map((color) => Padding(
-                                  padding: const EdgeInsets.only(right: 12.0),
+                                  padding: const EdgeInsets.only(right: AppDimens.paddingMedium),
                                   child: GestureDetector(
                                     onTap: () {
                                       _selectedColorNotifier.value = color;
@@ -189,7 +190,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         color: _getColor(color),
                                         shape: BoxShape.circle,
                                         border: Border.all(
-                                          color: selectedColor == color ? Theme.of(context).primaryColor : Colors.grey[300]!,
+                                          color: selectedColor == color ? Theme.of(context).primaryColor : Theme.of(context).dividerColor,
                                           width: 2,
                                         ),
                                         boxShadow: selectedColor == color
@@ -202,9 +203,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                         ),
                         
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppDimens.paddingMedium),
                         Text('Description', style: Theme.of(context).textTheme.titleMedium),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: AppDimens.paddingSmall),
                         Html(
                           data: widget.product.description,
                           style: {
@@ -221,7 +222,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           },
                         ),
                         
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppDimens.paddingMedium),
                         Text('Reviews', style: Theme.of(context).textTheme.titleMedium),
                         // Mock Review Item
                         const ListTile(
@@ -229,7 +230,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           leading: CircleAvatar(child: Text('JD')),
                           title: Text('John Doe'),
                           subtitle: Text('Great quality and fits perfectly!'),
-                          trailing: Icon(Icons.star, color: Colors.amber, size: 16),
+                          trailing: Icon(AppIcons.star, color: Colors.amber, size: 16),
                         ),
                       ],
                     ),
@@ -256,7 +257,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 54),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimens.r16)),
             ),
             child: const Text('Add to Cart'),
           ),

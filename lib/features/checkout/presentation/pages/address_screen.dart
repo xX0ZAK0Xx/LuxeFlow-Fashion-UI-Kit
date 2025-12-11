@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import '../../../../core/constants/app_icons.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/constants/app_dimens.dart';
 
 class AddressScreen extends StatefulWidget {
   final Function(String) onAddressSelected;
@@ -27,37 +28,37 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.all(AppDimens.paddingLarge),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text('Shipping Address', style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppDimens.paddingLarge),
             CustomTextField(
               controller: _addressController,
               label: 'Street Address',
-              prefixIcon: PhosphorIcons.house(),
+              prefixIcon: AppIcons.address,
               validator: (value) => value!.isEmpty ? 'Required' : null,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppDimens.paddingMedium),
             Row(
               children: [
                 Expanded(
                   child: CustomTextField(
                     controller: _cityController,
                     label: 'City',
-                    prefixIcon: PhosphorIcons.buildings(),
+                    prefixIcon: AppIcons.city,
                     validator: (value) => value!.isEmpty ? 'Required' : null,
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: AppDimens.paddingMedium),
                 Expanded(
                   child: CustomTextField(
                     controller: _zipController,
                     label: 'Zip Code',
-                    prefixIcon: PhosphorIcons.mapPin(),
+                    prefixIcon: AppIcons.mapPin,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     validator: (value) => value!.isEmpty ? 'Required' : null,
@@ -65,7 +66,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppDimens.paddingLarge),
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -74,7 +75,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, AppDimens.buttonHeight),
               ),
               child: const Text('Save & Continue'),
             ),

@@ -4,45 +4,8 @@ import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/notification_entity.dart';
 import '../../domain/usecases/notification_usecases.dart';
 
-// Events
-abstract class NotificationEvent extends Equatable {
-  const NotificationEvent();
-  @override
-  List<Object> get props => [];
-}
-
-class LoadNotifications extends NotificationEvent {}
-
-class MarkAllAsReadEvent extends NotificationEvent {}
-
-class MarkAsReadEvent extends NotificationEvent {
-  final String id;
-  const MarkAsReadEvent(this.id);
-  @override
-  List<Object> get props => [id];
-}
-
-// States
-abstract class NotificationState extends Equatable {
-  const NotificationState();
-  @override
-  List<Object> get props => [];
-}
-
-class NotificationInitial extends NotificationState {}
-class NotificationLoading extends NotificationState {}
-class NotificationLoaded extends NotificationState {
-  final List<NotificationEntity> notifications;
-  const NotificationLoaded(this.notifications);
-  @override
-  List<Object> get props => [notifications];
-}
-class NotificationError extends NotificationState {
-  final String message;
-  const NotificationError(this.message);
-  @override
-  List<Object> get props => [message];
-}
+part 'notification_event.dart';
+part 'notification_state.dart';
 
 // Bloc
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {

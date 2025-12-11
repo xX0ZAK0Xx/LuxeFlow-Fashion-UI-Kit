@@ -27,7 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.validator,
     this.keyboardType = TextInputType.text,
-    this.textInputAction,
+    this.textInputAction = TextInputAction.next,
     this.onSubmitted,
     this.onChanged,
     this.autofocus = false,

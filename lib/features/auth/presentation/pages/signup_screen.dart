@@ -118,6 +118,7 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
                       prefixIcon: PhosphorIcons.lockKey(),
                       controller: _confirmPasswordController,
                       isPassword: true,
+                      textInputAction: TextInputAction.done,
                       validator: (value) {
                         if (value != _passwordController.text) return 'Passwords do not match';
                         return null;

@@ -68,7 +68,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/*
-text action 
-keyboard type
-*/

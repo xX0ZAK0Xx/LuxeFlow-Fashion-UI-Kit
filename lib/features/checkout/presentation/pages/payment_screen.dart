@@ -83,6 +83,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             prefixIcon: PhosphorIcons.lockKey(),
                             keyboardType: TextInputType.number,
                             isPassword: true,
+                            textInputAction: TextInputAction.done,
                           ),
                         ),
                       ],

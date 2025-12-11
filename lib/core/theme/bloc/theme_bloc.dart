@@ -3,30 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Events
-abstract class ThemeEvent extends Equatable {
-  const ThemeEvent();
-  @override
-  List<Object> get props => [];
-}
-
-class ToggleTheme extends ThemeEvent {}
-
-class SetTheme extends ThemeEvent {
-  final ThemeMode themeMode;
-  const SetTheme(this.themeMode);
-  @override
-  List<Object> get props => [themeMode];
-}
-
-// States
-class ThemeState extends Equatable {
-  final ThemeMode themeMode;
-  const ThemeState(this.themeMode);
-
-  @override
-  List<Object> get props => [themeMode];
-}
+part 'theme_event.dart';
+part 'theme_state.dart';
 
 // Bloc
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {

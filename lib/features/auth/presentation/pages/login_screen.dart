@@ -140,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               prefixIcon: PhosphorIcons.lockKey(),
                               controller: _passwordController,
                               isPassword: true,
+                              textInputAction: TextInputAction.done,
                               validator: (value) => 
                                 value!.isEmpty ? 'Please enter your password' : null,
                             ),

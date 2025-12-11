@@ -5,70 +5,8 @@ import '../../domain/entities/cart_item_entity.dart';
 import '../../../product/domain/entities/product_entity.dart';
 import '../../domain/usecases/cart_usecases.dart';
 
-// Events
-abstract class CartEvent extends Equatable {
-  const CartEvent();
-  @override
-  List<Object?> get props => [];
-}
-
-class LoadCart extends CartEvent {}
-
-class AddProductToCart extends CartEvent {
-  final ProductEntity product;
-  final String? color;
-  final String? size;
-
-  const AddProductToCart(this.product, {this.color, this.size});
-
-  @override
-  List<Object?> get props => [product, color, size];
-}
-
-class RemoveProductFromCart extends CartEvent {
-  final ProductEntity product;
-  const RemoveProductFromCart(this.product);
-  @override
-  List<Object> get props => [product];
-}
-
-class UpdateCartItemQuantity extends CartEvent {
-  final ProductEntity product;
-  final int quantity;
-  const UpdateCartItemQuantity(this.product, this.quantity);
-  @override
-  List<Object> get props => [product, quantity];
-}
-
-class ClearCartEvent extends CartEvent {}
-
-// States
-abstract class CartState extends Equatable {
-  const CartState();
-  @override
-  List<Object> get props => [];
-}
-
-class CartInitial extends CartState {}
-
-class CartLoading extends CartState {}
-
-class CartLoaded extends CartState {
-  final List<CartItemEntity> items;
-  final double totalAmount;
-
-  const CartLoaded({required this.items, required this.totalAmount});
-
-  @override
-  List<Object> get props => [items, totalAmount];
-}
-
-class CartError extends CartState {
-  final String message;
-  const CartError(this.message);
-  @override
-  List<Object> get props => [message];
-}
+part 'cart_event.dart';
+part 'cart_state.dart';
 
 // Bloc
 class CartBloc extends Bloc<CartEvent, CartState> {

@@ -4,50 +4,8 @@ import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/shipping_address_entity.dart';
 import '../../domain/usecases/shipping_usecases.dart';
 
-// Events
-abstract class ShippingEvent extends Equatable {
-  const ShippingEvent();
-  @override
-  List<Object> get props => [];
-}
-
-class LoadShippingAddresses extends ShippingEvent {}
-
-class AddShippingAddressEvent extends ShippingEvent {
-  final ShippingAddressEntity address;
-  const AddShippingAddressEvent(this.address);
-  @override
-  List<Object> get props => [address];
-}
-
-class DeleteShippingAddressEvent extends ShippingEvent {
-  final String id;
-  const DeleteShippingAddressEvent(this.id);
-  @override
-  List<Object> get props => [id];
-}
-
-// States
-abstract class ShippingState extends Equatable {
-  const ShippingState();
-  @override
-  List<Object> get props => [];
-}
-
-class ShippingInitial extends ShippingState {}
-class ShippingLoading extends ShippingState {}
-class ShippingLoaded extends ShippingState {
-  final List<ShippingAddressEntity> addresses;
-  const ShippingLoaded(this.addresses);
-  @override
-  List<Object> get props => [addresses];
-}
-class ShippingError extends ShippingState {
-  final String message;
-  const ShippingError(this.message);
-  @override
-  List<Object> get props => [message];
-}
+part 'shipping_event.dart';
+part 'shipping_state.dart';
 
 // Bloc
 class ShippingBloc extends Bloc<ShippingEvent, ShippingState> {

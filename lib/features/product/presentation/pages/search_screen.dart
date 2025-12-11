@@ -70,6 +70,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   // Debounce could be added here
                   context.read<ProductBloc>().add(SearchProducts(value));
                 }, label: 'Search',
+                textInputAction: TextInputAction.search,
+                onSubmitted: (value) {
+                   context.read<ProductBloc>().add(SearchProducts(value));
+                },
               ),
             ),
             Expanded(

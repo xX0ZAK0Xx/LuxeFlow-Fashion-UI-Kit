@@ -60,6 +60,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     label: 'Zip Code',
                     prefixIcon: PhosphorIcons.mapPin(),
                     keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
                     validator: (value) => value!.isEmpty ? 'Required' : null,
                   ),
                 ),

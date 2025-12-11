@@ -370,6 +370,7 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                         prefixIcon: PhosphorIcons.lockKey(),
                         isPassword: true,
                         keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.done,
                       ),
                     ),
                   ],

@@ -4,50 +4,8 @@ import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/payment_method_entity.dart';
 import '../../domain/usecases/payment_usecases.dart';
 
-// Events
-abstract class PaymentEvent extends Equatable {
-  const PaymentEvent();
-  @override
-  List<Object> get props => [];
-}
-
-class LoadPaymentMethods extends PaymentEvent {}
-
-class AddPaymentMethodEvent extends PaymentEvent {
-  final PaymentMethodEntity method;
-  const AddPaymentMethodEvent(this.method);
-  @override
-  List<Object> get props => [method];
-}
-
-class DeletePaymentMethodEvent extends PaymentEvent {
-  final String id;
-  const DeletePaymentMethodEvent(this.id);
-  @override
-  List<Object> get props => [id];
-}
-
-// States
-abstract class PaymentState extends Equatable {
-  const PaymentState();
-  @override
-  List<Object> get props => [];
-}
-
-class PaymentInitial extends PaymentState {}
-class PaymentLoading extends PaymentState {}
-class PaymentLoaded extends PaymentState {
-  final List<PaymentMethodEntity> methods;
-  const PaymentLoaded(this.methods);
-  @override
-  List<Object> get props => [methods];
-}
-class PaymentError extends PaymentState {
-  final String message;
-  const PaymentError(this.message);
-  @override
-  List<Object> get props => [message];
-}
+part 'payment_event.dart';
+part 'payment_state.dart';
 
 // Bloc
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {

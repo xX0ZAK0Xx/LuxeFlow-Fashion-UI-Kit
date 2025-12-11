@@ -5,63 +5,8 @@ import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/usecases/get_products.dart';
 
-// Events
-abstract class ProductEvent extends Equatable {
-  const ProductEvent();
-  @override
-  List<Object?> get props => [];
-}
-
-class LoadDashboard extends ProductEvent {}
-
-class LoadProductsByCategory extends ProductEvent {
-  final String categoryId;
-  const LoadProductsByCategory(this.categoryId);
-  @override
-  List<Object> get props => [categoryId];
-}
-
-class SearchProducts extends ProductEvent {
-  final String query;
-  const SearchProducts(this.query);
-  @override
-  List<Object> get props => [query];
-}
-
-// States
-abstract class ProductState extends Equatable {
-  const ProductState();
-  @override
-  List<Object?> get props => [];
-}
-
-class ProductInitial extends ProductState {}
-
-class ProductLoading extends ProductState {}
-
-class DashboardLoaded extends ProductState {
-  final List<CategoryEntity> categories;
-  final List<ProductEntity> featuredProducts;
-
-  const DashboardLoaded({required this.categories, required this.featuredProducts});
-
-  @override
-  List<Object> get props => [categories, featuredProducts];
-}
-
-class ProductsLoaded extends ProductState {
-  final List<ProductEntity> products;
-  const ProductsLoaded(this.products);
-  @override
-  List<Object> get props => [products];
-}
-
-class ProductError extends ProductState {
-  final String message;
-  const ProductError(this.message);
-  @override
-  List<Object> get props => [message];
-}
+part 'product_event.dart';
+part 'product_state.dart';
 
 // Bloc
 class ProductBloc extends Bloc<ProductEvent, ProductState> {

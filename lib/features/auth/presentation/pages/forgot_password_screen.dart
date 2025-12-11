@@ -61,6 +61,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 prefixIcon: PhosphorIcons.envelopeSimple(),
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.done,
               ),
               
               const SizedBox(height: 32),

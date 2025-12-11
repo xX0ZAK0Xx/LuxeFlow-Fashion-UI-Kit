@@ -1,5 +1,4 @@
 import '../../domain/entities/cart_item_entity.dart';
-
 import '../../../product/domain/entities/product_entity.dart';
 
 abstract class CartLocalDataSource {

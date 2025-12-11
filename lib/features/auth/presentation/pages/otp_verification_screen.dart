@@ -42,8 +42,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -80,8 +79,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(4, (index) {
-                  return Container(
+                children: List.generate(4, (index) => Container(
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
@@ -113,8 +111,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ),
                       onChanged: (value) => _onChanged(value, index),
                     ),
-                  );
-                }),
+                  )),
               ),
               
               const SizedBox(height: 48),
@@ -143,7 +140,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 onPressed: () {
                   // Resend OTP logic
                 },
-                child: Text(
+                child: const Text(
                   'Resend Code',
                   style: TextStyle(
                     color: AppColors.primary,
@@ -156,5 +153,4 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
-  }
 }

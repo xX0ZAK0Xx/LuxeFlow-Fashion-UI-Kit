@@ -30,19 +30,17 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
   }
 
   void _deleteAddress(int index) {
-    final updatedList = List<Map<String, dynamic>>.from(_addressesNotifier.value);
-    updatedList.removeAt(index);
+    final updatedList = List<Map<String, dynamic>>.from(_addressesNotifier.value)
+    ..removeAt(index);
     _addressesNotifier.value = updatedList;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Shipping Addresses')),
       body: ValueListenableBuilder<List<Map<String, dynamic>>>(
         valueListenable: _addressesNotifier,
-        builder: (context, addresses, _) {
-          return addresses.isEmpty
+        builder: (context, addresses, _) => addresses.isEmpty
               ? const Center(child: Text('No addresses found'))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
@@ -60,8 +58,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
                       ),
                     );
                   },
-                );
-        },
+                ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -83,10 +80,8 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
         child: const Icon(Icons.add),
       ),
     );
-  }
 
-  Widget _buildAddressCard(BuildContext context, String label, String address, bool isDefault, int index) {
-    return Dismissible(
+  Widget _buildAddressCard(BuildContext context, String label, String address, bool isDefault, int index) => Dismissible(
       key: Key(address),
       direction: DismissDirection.endToStart,
       background: Container(
@@ -164,5 +159,4 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
         ),
       ),
     );
-  }
 }

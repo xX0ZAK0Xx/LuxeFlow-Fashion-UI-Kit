@@ -1,4 +1,4 @@
-import 'package:luxeflow/features/payment/domain/entities/payment_method_entity.dart';
+import '../../domain/entities/payment_method_entity.dart';
 
 
 abstract class PaymentLocalDataSource {
@@ -26,7 +26,6 @@ class PaymentLocalDataSourceImpl implements PaymentLocalDataSource {
       expiryDate: '10/24',
       cvv: '456',
       cardType: 'Mastercard',
-      isDefault: false,
     ),
   ];
 

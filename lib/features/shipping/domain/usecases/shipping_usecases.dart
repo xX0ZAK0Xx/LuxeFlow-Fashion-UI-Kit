@@ -10,9 +10,7 @@ class GetShippingAddresses implements UseCase<List<ShippingAddressEntity>, NoPar
   GetShippingAddresses(this.repository);
 
   @override
-  Future<Either<Failure, List<ShippingAddressEntity>>> call(NoParams params) async {
-    return await repository.getAddresses();
-  }
+  Future<Either<Failure, List<ShippingAddressEntity>>> call(NoParams params) async => repository.getAddresses();
 }
 
 class AddShippingAddress implements UseCase<void, ShippingAddressEntity> {
@@ -21,9 +19,7 @@ class AddShippingAddress implements UseCase<void, ShippingAddressEntity> {
   AddShippingAddress(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(ShippingAddressEntity params) async {
-    return await repository.addAddress(params);
-  }
+  Future<Either<Failure, void>> call(ShippingAddressEntity params) async => repository.addAddress(params);
 }
 
 class DeleteShippingAddress implements UseCase<void, String> {
@@ -32,7 +28,5 @@ class DeleteShippingAddress implements UseCase<void, String> {
   DeleteShippingAddress(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(String params) async {
-    return await repository.deleteAddress(params);
-  }
+  Future<Either<Failure, void>> call(String params) async => repository.deleteAddress(params);
 }

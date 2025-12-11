@@ -4,8 +4,7 @@ class OrderSuccessScreen extends StatelessWidget {
   const OrderSuccessScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -40,5 +39,4 @@ class OrderSuccessScreen extends StatelessWidget {
         ),
       ),
     );
-  }
 }

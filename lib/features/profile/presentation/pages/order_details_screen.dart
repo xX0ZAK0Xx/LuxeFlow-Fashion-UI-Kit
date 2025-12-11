@@ -9,8 +9,7 @@ class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen({super.key, required this.order});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Order Details')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppDimens.p16),
@@ -68,8 +67,7 @@ class OrderDetailsScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 2, // Mock 2 items
-              itemBuilder: (context, index) {
-                return Padding(
+              itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
                     children: [
@@ -96,8 +94,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       const Text('\$45.00', style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
-                );
-              },
+                ),
             ),
             const Divider(height: 32),
 
@@ -109,8 +106,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Shipping Address', style: TextStyle(fontWeight: FontWeight.bold)),
-                      SizedBox(height: 8),
+                      const Text('Shipping Address', style: TextStyle(fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 8),
                       Text('Jane Doe\n123 Main St\nNew York, NY 10001', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color)),
                     ],
                   ),
@@ -119,8 +116,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Payment Method', style: TextStyle(fontWeight: FontWeight.bold)),
-                      SizedBox(height: 8),
+                      const Text('Payment Method', style: TextStyle(fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 8),
                       Text('Visa ending 1234', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color)),
                     ],
                   ),
@@ -139,12 +136,12 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [Text('Subtotal'), Text('\$90.00')],
                   ),
                   const SizedBox(height: 8),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [Text('Shipping'), Text('\$15.00')],
                   ),
@@ -163,5 +160,4 @@ class OrderDetailsScreen extends StatelessWidget {
         ),
       ),
     );
-  }
 }

@@ -19,7 +19,6 @@ class ShippingLocalDataSourceImpl implements ShippingLocalDataSource {
       id: '2',
       label: 'Office',
       address: '456 Business Blvd, San Francisco, CA 94107',
-      isDefault: false,
     ),
   ];
 

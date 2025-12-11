@@ -78,7 +78,5 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       add(LoadCart());
   }
 
-  double _calculateTotal(List<CartItemEntity> items) {
-    return items.fold(0, (sum, item) => sum + (item.product.price * item.quantity));
-  }
+  double _calculateTotal(List<CartItemEntity> items) => items.fold(0, (sum, item) => sum + (item.product.price * item.quantity));
 }

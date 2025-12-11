@@ -49,8 +49,7 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
@@ -173,5 +172,4 @@ class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderSt
         ),
       ),
     );
-  }
 }

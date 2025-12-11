@@ -27,8 +27,7 @@ class NotificationEntity extends Equatable {
     String? time,
     bool? isRead,
     String? type,
-  }) {
-    return NotificationEntity(
+  }) => NotificationEntity(
       id: id ?? this.id,
       title: title ?? this.title,
       body: body ?? this.body,
@@ -36,5 +35,4 @@ class NotificationEntity extends Equatable {
       isRead: isRead ?? this.isRead,
       type: type ?? this.type,
     );
-  }
 }

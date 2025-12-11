@@ -9,8 +9,7 @@ class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
         centerTitle: true,
@@ -48,7 +47,6 @@ class NotificationScreen extends StatelessWidget {
         },
       ),
     );
-  }
 
   Widget _buildNotificationCard(BuildContext context, NotificationEntity n) {
       Color iconColor;

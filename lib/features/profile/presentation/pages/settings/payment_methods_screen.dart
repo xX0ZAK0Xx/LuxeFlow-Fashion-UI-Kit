@@ -32,8 +32,8 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   }
 
   void _deleteCard(int index) {
-    final updatedList = List<Map<String, dynamic>>.from(_cardsNotifier.value);
-    updatedList.removeAt(index);
+    final updatedList = List<Map<String, dynamic>>.from(_cardsNotifier.value)
+    ..removeAt(index);
     _cardsNotifier.value = updatedList;
   }
 
@@ -55,13 +55,11 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Payment Methods')),
       body: ValueListenableBuilder<List<Map<String, dynamic>>>(
         valueListenable: _cardsNotifier,
-        builder: (context, cards, _) {
-          return cards.isEmpty
+        builder: (context, cards, _) => cards.isEmpty
               ? const Center(child: Text('No payment methods saved'))
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
@@ -80,18 +78,15 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                       ),
                     );
                   },
-                );
-        },
+                ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddCardSheet,
         child: const Icon(Icons.add),
       ),
     );
-  }
 
-  Widget _buildPaymentCard(BuildContext context, String number, String expiry, String type, bool isDefault, int index) {
-    return Dismissible(
+  Widget _buildPaymentCard(BuildContext context, String number, String expiry, String type, bool isDefault, int index) => Dismissible(
       key: Key(number),
       direction: DismissDirection.endToStart,
       background: Container(
@@ -161,7 +156,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         ),
       ),
     );
-  }
 }
 
 class _AddCardSheet extends StatefulWidget {
@@ -211,8 +205,7 @@ class _AddCardSheetState extends State<_AddCardSheet> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
@@ -269,8 +262,7 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                           Icon(PhosphorIcons.contactlessPayment(), color: Colors.white70),
                           ValueListenableBuilder<String>(
                             valueListenable: _typeNotifier,
-                            builder: (context, type, _) {
-                              return Text(
+                            builder: (context, type, _) => Text(
                                 type,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -278,15 +270,13 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                                   fontSize: 18,
                                   fontStyle: FontStyle.italic,
                                 ),
-                              );
-                            },
+                              ),
                           ),
                         ],
                       ),
                       ValueListenableBuilder<String>(
                         valueListenable: _numberNotifier,
-                        builder: (context, number, _) {
-                          return Text(
+                        builder: (context, number, _) => Text(
                             number.isEmpty ? '**** **** **** ****' : number,
                             style: const TextStyle(
                               color: Colors.white,
@@ -294,8 +284,7 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                               letterSpacing: 2,
                               fontFamily: 'Courier',
                             ),
-                          );
-                        },
+                          ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -306,12 +295,10 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                               const Text('CARD HOLDER', style: TextStyle(color: Colors.white60, fontSize: 10)),
                               ValueListenableBuilder<String>(
                                 valueListenable: _holderNotifier,
-                                builder: (context, holder, _) {
-                                  return Text(
+                                builder: (context, holder, _) => Text(
                                     holder.isEmpty ? 'YOUR NAME' : holder.toUpperCase(),
                                     style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  );
-                                },
+                                  ),
                               ),
                             ],
                           ),
@@ -321,12 +308,10 @@ class _AddCardSheetState extends State<_AddCardSheet> {
                               const Text('EXPIRES', style: TextStyle(color: Colors.white60, fontSize: 10)),
                               ValueListenableBuilder<String>(
                                 valueListenable: _expiryNotifier,
-                                builder: (context, expiry, _) {
-                                  return Text(
+                                builder: (context, expiry, _) => Text(
                                     expiry.isEmpty ? 'MM/YY' : expiry,
                                     style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  );
-                                },
+                                  ),
                               ),
                             ],
                           ),
@@ -403,7 +388,6 @@ class _AddCardSheetState extends State<_AddCardSheet> {
         ],
       ),
     );
-  }
 
 
 }

@@ -1,1 +1,45 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  # producing the lint.
+  rules:
+    # ✅ Imports
+    prefer_relative_imports: true
+    always_use_package_imports: false
+
+    # ✅ Const & Immutability
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_const_declarations: true
+    unnecessary_const: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+
+    # ✅ Flutter UI Optimization
+    avoid_unnecessary_containers: true
+    sized_box_for_whitespace: true
+    use_colored_box: true
+    use_decorated_box: true
+    sort_child_properties_last: true
+
+    # ✅ Clean Code & Style
+    require_trailing_commas: true
+    cascade_invocations: true
+    unnecessary_this: true
+    unnecessary_lambdas: true
+    prefer_expression_function_bodies: true
+    use_super_parameters: true
+
+    # ✅ Null Safety & Readability
+    unnecessary_null_in_if_null_operators: true
+    unnecessary_late: true
+    unnecessary_await_in_return: true
+    prefer_if_null_operators: true
+
+    # ✅ Best Practices
+    avoid_print: true
+    avoid_redundant_argument_values: true
+    always_declare_return_types: true
+    avoid_empty_else: true
+    prefer_typing_uninitialized_variables: true
+    use_full_hex_values_for_flutter_colors: true

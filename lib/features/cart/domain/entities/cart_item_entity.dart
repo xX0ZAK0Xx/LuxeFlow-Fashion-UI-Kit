@@ -22,12 +22,10 @@ class CartItemEntity extends Equatable {
     int? quantity,
     String? selectedColor,
     String? selectedSize,
-  }) {
-    return CartItemEntity(
+  }) => CartItemEntity(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
       selectedColor: selectedColor ?? this.selectedColor,
       selectedSize: selectedSize ?? this.selectedSize,
     );
-  }
 }

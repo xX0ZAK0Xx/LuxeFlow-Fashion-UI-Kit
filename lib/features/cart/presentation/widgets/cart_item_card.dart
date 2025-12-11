@@ -17,14 +17,13 @@ class CartItemCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
-        boxShadow: [], // Removed shadow
+        boxShadow: const [], // Removed shadow
       ),
       child: IntrinsicHeight(
         child: Row(
@@ -101,7 +100,7 @@ class CartItemCard extends StatelessWidget {
                               ),
                         ),
                         
-                        Container(
+                        DecoratedBox(
                           decoration: BoxDecoration(
                             color: Colors.grey[100],
                             borderRadius: BorderRadius.circular(20),
@@ -130,10 +129,8 @@ class CartItemCard extends StatelessWidget {
         ),
       ),
     );
-  }
 
-  Widget _buildQtyBtn(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
+  Widget _buildQtyBtn(IconData icon, VoidCallback onTap) => GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(6),
@@ -143,5 +140,4 @@ class CartItemCard extends StatelessWidget {
         child: Icon(icon, size: 16, color: Colors.black),
       ),
     );
-  }
 }

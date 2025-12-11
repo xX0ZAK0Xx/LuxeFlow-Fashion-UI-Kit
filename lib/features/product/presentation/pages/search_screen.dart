@@ -25,8 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: const Text('Discover'),
         actions: [
@@ -54,8 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 prefixIcon: PhosphorIcons.magnifyingGlass(),
                 suffix: ValueListenableBuilder<TextEditingValue>(
                   valueListenable: _searchController,
-                  builder: (context, value, child) {
-                    return value.text.isNotEmpty
+                  builder: (context, value, child) => value.text.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear, color: Colors.grey),
                             onPressed: () {
@@ -63,8 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               context.read<ProductBloc>().add(const SearchProducts(''));
                             },
                           )
-                        : const SizedBox.shrink();
-                  },
+                        : const SizedBox.shrink(),
                 ),
                 onChanged: (value) {
                   // Debounce could be added here
@@ -150,8 +147,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           Wrap(
                             spacing: 8,
                             runSpacing: 8,
-                            children: ['Winter Coat', 'Black Dress', 'Leather Boots', 'Scarf'].map((search) {
-                              return ActionChip(
+                            children: ['Winter Coat', 'Black Dress', 'Leather Boots', 'Scarf'].map((search) => ActionChip(
                                 label: Text(search),
                                 avatar: const Icon(Icons.history, size: 16, color: Colors.grey),
                                 backgroundColor: Theme.of(context).cardColor,
@@ -162,8 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   context.read<ProductBloc>().add(SearchProducts(search));
                                   setState(() {});
                                 },
-                              );
-                            }).toList(),
+                              )).toList(),
                           ),
                           const SizedBox(height: 24),
                           
@@ -212,8 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           const SizedBox(height: 12),
                           // List of text links or categories
                            Column(
-                             children: ['New Arrivals in Shoes', 'Best Sellers in Accessories', 'Sale Items'].map((item) {
-                               return ListTile(
+                             children: ['New Arrivals in Shoes', 'Best Sellers in Accessories', 'Sale Items'].map((item) => ListTile(
                                  contentPadding: EdgeInsets.zero,
                                  leading: Container(
                                    padding: const EdgeInsets.all(8),
@@ -223,8 +217,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                  title: Text(item, style: const TextStyle(fontWeight: FontWeight.w500)),
                                  trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
                                  onTap: () {},
-                               );
-                             }).toList(),
+                               )).toList(),
                            ),
                         ],
                       ),
@@ -237,5 +230,4 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
-  }
 }

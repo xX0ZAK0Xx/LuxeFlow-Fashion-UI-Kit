@@ -4,8 +4,7 @@ class SizeGuideModal extends StatelessWidget {
   const SizeGuideModal({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
+  Widget build(BuildContext context) => Dialog(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -59,5 +58,4 @@ class SizeGuideModal extends StatelessWidget {
         ),
       ),
     );
-  }
 }

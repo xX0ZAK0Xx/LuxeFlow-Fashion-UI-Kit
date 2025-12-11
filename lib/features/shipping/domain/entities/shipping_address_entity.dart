@@ -21,12 +21,10 @@ class ShippingAddressEntity extends Equatable {
     String? label,
     String? address,
     bool? isDefault,
-  }) {
-    return ShippingAddressEntity(
+  }) => ShippingAddressEntity(
       id: id ?? this.id,
       label: label ?? this.label,
       address: address ?? this.address,
       isDefault: isDefault ?? this.isDefault,
     );
-  }
 }

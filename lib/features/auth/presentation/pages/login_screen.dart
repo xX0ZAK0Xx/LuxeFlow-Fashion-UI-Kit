@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luxeflow/core/constants/app_images.dart';
+import '../../../../core/constants/app_images.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/constants/app_dimens.dart';
 import '../../../../core/widgets/custom_text_field.dart';
@@ -58,8 +58,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -73,8 +72,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             );
           }
         },
-        builder: (context, state) {
-          return SingleChildScrollView(
+        builder: (context, state) => SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Stack(
@@ -254,9 +252,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 ],
               ),
             ),
-          );
-        },
+          ),
       ),
     );
-  }
 }

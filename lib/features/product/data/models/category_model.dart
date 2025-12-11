@@ -9,11 +9,9 @@ class CategoryModel {
     required this.imageUrl,
   });
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
-    return CategoryModel(
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
       id: json['id'],
       name: json['name'],
       imageUrl: json['imageUrl'],
     );
-  }
 }

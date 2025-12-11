@@ -29,8 +29,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
+  Widget build(BuildContext context) => SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -108,13 +107,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ],
       ),
     );
-  }
 
-  Widget _buildPaymentOption(int value, String title, IconData icon) {
-    return ValueListenableBuilder<int>(
+  Widget _buildPaymentOption(int value, String title, IconData icon) => ValueListenableBuilder<int>(
       valueListenable: _selectedPaymentMethodNotifier,
-      builder: (context, selectedPaymentMethod, _) {
-        return RadioListTile<int>(
+      builder: (context, selectedPaymentMethod, _) => RadioListTile<int>(
           value: value,
           groupValue: selectedPaymentMethod,
           onChanged: (int? newValue) {
@@ -132,8 +128,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
             side: BorderSide(color: Colors.grey.shade300),
           ),
           tileColor: Theme.of(context).cardColor,
-        );
-      },
+        ),
     );
-  }
 }

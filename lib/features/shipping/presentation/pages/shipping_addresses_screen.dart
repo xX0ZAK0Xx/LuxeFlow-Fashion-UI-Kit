@@ -19,8 +19,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Shipping Addresses')),
       body: BlocBuilder<ShippingBloc, ShippingState>(
         builder: (context, state) {
@@ -61,7 +60,6 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
                       id: DateTime.now().millisecondsSinceEpoch.toString(),
                       label: 'New Address',
                       address: addressString,
-                      isDefault: false,
                     );
                     context.read<ShippingBloc>().add(AddShippingAddressEvent(newAddress));
                     Navigator.pop(context);
@@ -74,10 +72,8 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
         child: const Icon(Icons.add),
       ),
     );
-  }
 
-  Widget _buildAddressCard(BuildContext context, ShippingAddressEntity address) {
-    return Dismissible(
+  Widget _buildAddressCard(BuildContext context, ShippingAddressEntity address) => Dismissible(
       key: Key(address.id),
       direction: DismissDirection.endToStart,
       background: Container(
@@ -159,5 +155,4 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
         ),
       ),
     );
-  }
 }

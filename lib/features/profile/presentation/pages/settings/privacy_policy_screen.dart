@@ -4,12 +4,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Privacy Policy')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: const Text(
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Text(
           '''
 **Privacy Policy for LuxeFlow**
 
@@ -42,5 +41,4 @@ If you have any questions about this privacy policy, please contact us.
         ),
       ),
     );
-  }
 }

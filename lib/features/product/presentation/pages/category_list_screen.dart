@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow/features/product/presentation/pages/category_products_screen.dart';
+import 'category_products_screen.dart';
 import '../blocs/product_bloc.dart';
 
 class CategoryListScreen extends StatelessWidget {
   const CategoryListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('All Categories')),
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
@@ -71,5 +70,4 @@ class CategoryListScreen extends StatelessWidget {
         },
       ),
     );
-  }
 }

@@ -12,9 +12,7 @@ class GetProducts implements UseCase<List<ProductEntity>, GetProductsParams> {
   GetProducts(this.repository);
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> call(GetProductsParams params) async {
-    return await repository.getProducts(categoryId: params.categoryId, searchQuery: params.searchQuery);
-  }
+  Future<Either<Failure, List<ProductEntity>>> call(GetProductsParams params) async => repository.getProducts(categoryId: params.categoryId, searchQuery: params.searchQuery);
 }
 
 class GetProductsParams extends Equatable {
@@ -33,7 +31,5 @@ class GetCategories implements UseCase<List<CategoryEntity>, NoParams> {
   GetCategories(this.repository);
 
   @override
-  Future<Either<Failure, List<CategoryEntity>>> call(NoParams params) async {
-    return await repository.getCategories();
-  }
+  Future<Either<Failure, List<CategoryEntity>>> call(NoParams params) async => repository.getCategories();
 }

@@ -152,8 +152,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
     bool isSale = false,
     List<String> sizes = const [],
     List<String> colors = const [],
-  }) {
-    return ProductEntity(
+  }) => ProductEntity(
       id: id,
       name: name,
       description: description,
@@ -167,5 +166,4 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
       sizes: sizes,
       colors: colors,
     );
-  }
 }

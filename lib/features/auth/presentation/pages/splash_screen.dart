@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:luxeflow/core/constants/app_images.dart';
+import '../../../../core/constants/app_images.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../pages/onboarding_screen.dart';
 
@@ -41,8 +41,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       backgroundColor: AppColors.primary,
       body: Center(
         child: FadeTransition(
@@ -64,5 +63,4 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         ),
       ),
     );
-  }
 }

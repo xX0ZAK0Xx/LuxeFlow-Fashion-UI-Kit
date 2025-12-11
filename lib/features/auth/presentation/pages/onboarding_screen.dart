@@ -39,8 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: Stack(
         children: [
           PageView.builder(
@@ -62,8 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 ValueListenableBuilder<int>(
                   valueListenable: _currentPageNotifier,
-                  builder: (context, currentPage, _) {
-                    return Row(
+                  builder: (context, currentPage, _) => Row(
                       children: [
                         Row(
                           children: List.generate(
@@ -81,13 +79,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ),
                       ],
-                    );
-                  },
+                    ),
                 ),
                 ValueListenableBuilder<int>(
                   valueListenable: _currentPageNotifier,
-                  builder: (context, currentPage, _) {
-                    return ElevatedButton(
+                  builder: (context, currentPage, _) => ElevatedButton(
                       onPressed: () {
                         if (currentPage == _onboardingData.length - 1) {
                           Navigator.pushReplacement(
@@ -102,8 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         }
                       },
                       child: Text(currentPage == _onboardingData.length - 1 ? "Get Started" : "Next"),
-                    );
-                  },
+                    ),
                 )
               ],
             ),
@@ -111,10 +106,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ],
       ),
     );
-  }
 
-  Widget _buildPage({required String image, required String title, required String text}) {
-    return Container(
+  Widget _buildPage({required String image, required String title, required String text}) => DecoratedBox(
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(image),
@@ -144,5 +137,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
-  }
 }

@@ -21,46 +21,38 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Notification Settings')),
       body: ListView(
         children: [
           ValueListenableBuilder<bool>(
             valueListenable: _orderUpdatesNotifier,
-            builder: (context, value, _) {
-              return SwitchListTile(
+            builder: (context, value, _) => SwitchListTile(
                 title: const Text('Order Updates'),
                 subtitle: const Text('Get notified about your order status'),
                 value: value,
                 onChanged: (val) => _orderUpdatesNotifier.value = val,
-              );
-            },
+              ),
           ),
           ValueListenableBuilder<bool>(
             valueListenable: _promotionsNotifier,
-            builder: (context, value, _) {
-              return SwitchListTile(
+            builder: (context, value, _) => SwitchListTile(
                 title: const Text('Promotions'),
                 subtitle: const Text('Receive offers and discounts'),
                 value: value,
                 onChanged: (val) => _promotionsNotifier.value = val,
-              );
-            },
+              ),
           ),
           ValueListenableBuilder<bool>(
             valueListenable: _newArrivalsNotifier,
-            builder: (context, value, _) {
-              return SwitchListTile(
+            builder: (context, value, _) => SwitchListTile(
                 title: const Text('New Arrivals'),
                 subtitle: const Text('Be the first to know about new products'),
                 value: value,
                 onChanged: (val) => _newArrivalsNotifier.value = val,
-              );
-            },
+              ),
           ),
         ],
       ),
     );
-  }
 }

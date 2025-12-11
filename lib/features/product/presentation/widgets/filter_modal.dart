@@ -35,8 +35,7 @@ class _FilterModalState extends State<FilterModal> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -79,7 +78,7 @@ class _FilterModalState extends State<FilterModal> {
                   _selectedColorNameNotifier.value = null;
                   _selectedSizeNotifier.value = null;
                 },
-                child: Text(
+                child: const Text(
                   'Reset', 
                   style: TextStyle(color: AppColors.primary),
                 ),
@@ -98,8 +97,7 @@ class _FilterModalState extends State<FilterModal> {
           const SizedBox(height: 16),
           ValueListenableBuilder<RangeValues>(
             valueListenable: _priceRangeNotifier,
-            builder: (context, priceRange, _) {
-              return Column(
+            builder: (context, priceRange, _) => Column(
                 children: [
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +108,6 @@ class _FilterModalState extends State<FilterModal> {
                   ),
                   RangeSlider(
                     values: priceRange,
-                    min: 0,
                     max: 500,
                     divisions: 50,
                     activeColor: Theme.of(context).colorScheme.onSurface,
@@ -120,8 +117,7 @@ class _FilterModalState extends State<FilterModal> {
                     },
                   ),
                 ],
-              );
-            },
+              ),
           ),
           
           const SizedBox(height: 24),
@@ -136,8 +132,7 @@ class _FilterModalState extends State<FilterModal> {
           const SizedBox(height: 16),
           ValueListenableBuilder<String?>(
             valueListenable: _selectedColorNameNotifier,
-            builder: (context, selectedColorName, _) {
-              return Wrap(
+            builder: (context, selectedColorName, _) => Wrap(
                 spacing: 16,
                 runSpacing: 16,
                 children: _colors.map((colorItem) {
@@ -176,8 +171,7 @@ class _FilterModalState extends State<FilterModal> {
                     ),
                   );
                 }).toList(),
-              );
-            },
+              ),
           ),
           
           const SizedBox(height: 24),
@@ -192,8 +186,7 @@ class _FilterModalState extends State<FilterModal> {
           const SizedBox(height: 16),
           ValueListenableBuilder<String?>(
             valueListenable: _selectedSizeNotifier,
-            builder: (context, selectedSize, _) {
-              return Wrap(
+            builder: (context, selectedSize, _) => Wrap(
                 spacing: 12,
                 runSpacing: 12,
                 children: _sizes.map((size) {
@@ -229,8 +222,7 @@ class _FilterModalState extends State<FilterModal> {
                     ),
                   );
                 }).toList(),
-              );
-            },
+              ),
           ),
           
           const SizedBox(height: 40),
@@ -256,5 +248,4 @@ class _FilterModalState extends State<FilterModal> {
         ],
       ),
     );
-  }
 }

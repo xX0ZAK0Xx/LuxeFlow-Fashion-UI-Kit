@@ -50,8 +50,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
@@ -108,8 +107,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           Icon(PhosphorIcons.contactlessPayment(), color: Colors.white70),
                           ValueListenableBuilder<String>(
                             valueListenable: _typeNotifier,
-                            builder: (context, type, _) {
-                              return Text(
+                            builder: (context, type, _) => Text(
                                 type,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -117,15 +115,13 @@ class _AddCardSheetState extends State<AddCardSheet> {
                                   fontSize: 18,
                                   fontStyle: FontStyle.italic,
                                 ),
-                              );
-                            },
+                              ),
                           ),
                         ],
                       ),
                       ValueListenableBuilder<String>(
                         valueListenable: _numberNotifier,
-                        builder: (context, number, _) {
-                          return Text(
+                        builder: (context, number, _) => Text(
                             number.isEmpty ? '**** **** **** ****' : number,
                             style: const TextStyle(
                               color: Colors.white,
@@ -133,8 +129,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               letterSpacing: 2,
                               fontFamily: 'Courier',
                             ),
-                          );
-                        },
+                          ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,12 +140,10 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               const Text('CARD HOLDER', style: TextStyle(color: Colors.white60, fontSize: 10)),
                               ValueListenableBuilder<String>(
                                 valueListenable: _holderNotifier,
-                                builder: (context, holder, _) {
-                                  return Text(
+                                builder: (context, holder, _) => Text(
                                     holder.isEmpty ? 'YOUR NAME' : holder.toUpperCase(),
                                     style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  );
-                                },
+                                  ),
                               ),
                             ],
                           ),
@@ -160,12 +153,10 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               const Text('EXPIRES', style: TextStyle(color: Colors.white60, fontSize: 10)),
                               ValueListenableBuilder<String>(
                                 valueListenable: _expiryNotifier,
-                                builder: (context, expiry, _) {
-                                  return Text(
+                                builder: (context, expiry, _) => Text(
                                     expiry.isEmpty ? 'MM/YY' : expiry,
                                     style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  );
-                                },
+                                  ),
                               ),
                             ],
                           ),
@@ -199,7 +190,6 @@ class _AddCardSheetState extends State<AddCardSheet> {
                         hintText: 'MM/YY',
                         prefixIcon: PhosphorIcons.calendarBlank(),
                         keyboardType: TextInputType.datetime,
-                        textInputAction: TextInputAction.next,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -244,5 +234,4 @@ class _AddCardSheetState extends State<AddCardSheet> {
         ],
       ),
     );
-  }
 }

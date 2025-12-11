@@ -15,8 +15,7 @@ class CustomBottomNav extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(AppDimens.radiusLarge)),
@@ -41,7 +40,6 @@ class CustomBottomNav extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Widget _buildNavItem(BuildContext context, int index, IconData icon, IconData activeIcon, String label, {int count = 0}) {
     final isSelected = currentIndex == index;

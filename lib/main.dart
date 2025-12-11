@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
+  Widget build(BuildContext context) => MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => di.sl<ThemeBloc>(),
@@ -53,8 +52,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          return MaterialApp(
+        builder: (context, state) => MaterialApp(
             title: 'LuxeFlow',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
@@ -62,9 +60,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             home: const SplashScreen(),
             // home: const HomeScreen(),
-          );
-        },
+          ),
       ),
     );
-  }
 }

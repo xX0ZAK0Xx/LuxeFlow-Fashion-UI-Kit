@@ -11,8 +11,7 @@ class CategoryProductsScreen extends StatelessWidget {
   const CategoryProductsScreen({super.key, required this.category});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text(category.name),
         actions: [
@@ -80,5 +79,4 @@ class CategoryProductsScreen extends StatelessWidget {
         },
       ),
     );
-  }
 }

@@ -16,8 +16,7 @@ class ProductModel extends ProductEntity {
     super.colors,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
       id: json['id'],
       name: json['name'],
       description: json['description'],
@@ -31,5 +30,4 @@ class ProductModel extends ProductEntity {
       sizes: List<String>.from(json['sizes'] ?? []),
       colors: List<String>.from(json['colors'] ?? []),
     );
-  }
 }

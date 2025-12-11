@@ -28,7 +28,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
       cardType: type,
       cardHolderName: holder,
       cvv: 'xxx', // Typically not stored, but for dummy entity
-      isDefault: false,
     );
     context.read<PaymentBloc>().add(AddPaymentMethodEvent(newCard));
   }
@@ -51,8 +50,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Payment Methods')),
       body: BlocBuilder<PaymentBloc, PaymentState>(
         builder: (context, state) {
@@ -84,10 +82,8 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         child: const Icon(Icons.add),
       ),
     );
-  }
 
-  Widget _buildPaymentCard(BuildContext context, PaymentMethodEntity card) {
-    return Dismissible(
+  Widget _buildPaymentCard(BuildContext context, PaymentMethodEntity card) => Dismissible(
       key: Key(card.id),
       direction: DismissDirection.endToStart,
       background: Container(
@@ -161,5 +157,4 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         ),
       ),
     );
-  }
 }

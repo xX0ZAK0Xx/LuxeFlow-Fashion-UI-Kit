@@ -18,15 +18,14 @@ class ProductCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
-          boxShadow: [], // Removed shadow
+          boxShadow: const [], // Removed shadow
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +77,7 @@ class ProductCard extends StatelessWidget {
                           color: const Color(0xFFE53935),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Text('-20%', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)), // Mock discount
+                        child: const Text('-20%', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)), // Mock discount
                       ),
                     ),
                     
@@ -102,7 +101,7 @@ class ProductCard extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: Icon(Icons.add, color: Colors.black, size: 20),
+                        child: const Icon(Icons.add, color: Colors.black, size: 20),
                       ),
                     ),
                   ),
@@ -163,5 +162,4 @@ class ProductCard extends StatelessWidget {
         ),
       ),
     );
-  }
 }

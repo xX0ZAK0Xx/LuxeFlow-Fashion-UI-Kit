@@ -7,8 +7,7 @@ class SectionHeader extends StatelessWidget {
   const SectionHeader({super.key, required this.title, this.onViewAll});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
+  Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,5 +26,4 @@ class SectionHeader extends StatelessWidget {
         ],
       ),
     );
-  }
 }

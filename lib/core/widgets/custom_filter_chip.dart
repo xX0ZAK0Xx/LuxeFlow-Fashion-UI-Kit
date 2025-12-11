@@ -13,8 +13,7 @@ class CustomFilterChip extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
       onTap: onSelected,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -34,5 +33,4 @@ class CustomFilterChip extends StatelessWidget {
         ),
       ),
     );
-  }
 }

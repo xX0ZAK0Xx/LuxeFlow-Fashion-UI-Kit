@@ -21,13 +21,10 @@ class ImageCarousel extends StatelessWidget {
       options: CarouselOptions(
         height: height,
         viewportFraction: 1.0,
-        enableInfiniteScroll: true,
         autoPlay: true,
       ),
-      items: imageUrls.map((url) {
-        return Builder(
-          builder: (BuildContext context) {
-            return SizedBox(
+      items: imageUrls.map((url) => Builder(
+          builder: (BuildContext context) => SizedBox(
               width: MediaQuery.of(context).size.width,
               child: CachedNetworkImage(
                 imageUrl: url,
@@ -40,10 +37,8 @@ class ImageCarousel extends StatelessWidget {
                 ),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-            );
-          },
-        );
-      }).toList(),
+            ),
+        )).toList(),
     );
   }
 }

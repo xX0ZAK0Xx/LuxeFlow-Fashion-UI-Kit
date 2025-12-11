@@ -59,11 +59,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
+  Widget build(BuildContext context) => ValueListenableBuilder<bool>(
       valueListenable: _isFocusedNotifier,
-      builder: (context, isFocused, child) {
-        return Column(
+      builder: (context, isFocused, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (widget.label.isNotEmpty) ...[
@@ -76,15 +74,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
               const SizedBox(height: 8),
             ],
-            Container(
+            DecoratedBox(
               decoration: BoxDecoration(
                 color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.grey.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ValueListenableBuilder<bool>(
                 valueListenable: _obscureTextNotifier,
-                builder: (context, obscureText, _) {
-                  return TextFormField(
+                builder: (context, obscureText, _) => TextFormField(
                     controller: widget.controller,
                     focusNode: _focusNode,
                     obscureText: widget.isPassword && obscureText,
@@ -128,13 +125,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         vertical: 14,
                       ),
                     ),
-                  );
-                },
+                  ),
               ),
             ),
           ],
-        );
-      },
+        ),
     );
-  }
 }

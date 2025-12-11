@@ -43,15 +43,14 @@ class _OffersScreenState extends State<OffersScreen> {
 
   String _formatDuration(Duration d) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String hours = twoDigits(d.inHours);
-    String minutes = twoDigits(d.inMinutes.remainder(60));
-    String seconds = twoDigits(d.inSeconds.remainder(60));
+    final String hours = twoDigits(d.inHours);
+    final String minutes = twoDigits(d.inMinutes.remainder(60));
+    final String seconds = twoDigits(d.inSeconds.remainder(60));
     return "$hours:$minutes:$seconds";
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Exclusive Offers')),
       body: CustomScrollView(
         slivers: [
@@ -87,8 +86,7 @@ class _OffersScreenState extends State<OffersScreen> {
                    const SizedBox(height: 12),
                    ValueListenableBuilder<Duration>(
                      valueListenable: _timeLeftNotifier,
-                     builder: (context, timeLeft, _) {
-                       return Text(
+                     builder: (context, timeLeft, _) => Text(
                          _formatDuration(timeLeft),
                          style: const TextStyle(
                            color: Colors.white,
@@ -96,8 +94,7 @@ class _OffersScreenState extends State<OffersScreen> {
                            fontSize: 32,
                            fontFamily: 'monospace'
                          ),
-                       );
-                     },
+                       ),
                    ),
                    const SizedBox(height: 16),
                    ElevatedButton(
@@ -158,5 +155,4 @@ class _OffersScreenState extends State<OffersScreen> {
         ],
       ),
     );
-  }
 }

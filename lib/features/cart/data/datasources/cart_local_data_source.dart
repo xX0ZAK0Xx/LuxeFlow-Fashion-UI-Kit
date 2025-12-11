@@ -1,4 +1,4 @@
-import 'package:luxeflow/features/cart/domain/entities/cart_item_entity.dart';
+import '../../domain/entities/cart_item_entity.dart';
 
 import '../../../product/domain/entities/product_entity.dart';
 
@@ -42,9 +42,7 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   }
 
   @override
-  Future<List<CartItemEntity>> getCart() async {
-    return List.from(_cart);
-  }
+  Future<List<CartItemEntity>> getCart() async => List.from(_cart);
 
   @override
   Future<void> removeFromCart(ProductEntity product) async {

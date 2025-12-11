@@ -4,12 +4,11 @@ class TermsOfServiceScreen extends StatelessWidget {
   const TermsOfServiceScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Terms of Service')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: const Text(
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Text(
           '''
 **Terms of Service for LuxeFlow**
 
@@ -35,5 +34,4 @@ We reserve the right, at our sole discretion, to update, change or replace any p
         ),
       ),
     );
-  }
 }

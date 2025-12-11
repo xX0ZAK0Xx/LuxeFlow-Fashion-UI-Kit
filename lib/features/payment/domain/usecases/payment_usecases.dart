@@ -10,9 +10,7 @@ class GetPaymentMethods implements UseCase<List<PaymentMethodEntity>, NoParams> 
   GetPaymentMethods(this.repository);
 
   @override
-  Future<Either<Failure, List<PaymentMethodEntity>>> call(NoParams params) async {
-    return await repository.getMethods();
-  }
+  Future<Either<Failure, List<PaymentMethodEntity>>> call(NoParams params) async => repository.getMethods();
 }
 
 class AddPaymentMethod implements UseCase<void, PaymentMethodEntity> {
@@ -21,9 +19,7 @@ class AddPaymentMethod implements UseCase<void, PaymentMethodEntity> {
   AddPaymentMethod(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(PaymentMethodEntity params) async {
-    return await repository.addMethod(params);
-  }
+  Future<Either<Failure, void>> call(PaymentMethodEntity params) async => repository.addMethod(params);
 }
 
 class DeletePaymentMethod implements UseCase<void, String> {
@@ -32,7 +28,5 @@ class DeletePaymentMethod implements UseCase<void, String> {
   DeletePaymentMethod(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(String params) async {
-    return await repository.deleteMethod(params);
-  }
+  Future<Either<Failure, void>> call(String params) async => repository.deleteMethod(params);
 }

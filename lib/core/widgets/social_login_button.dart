@@ -14,8 +14,7 @@ class SocialLoginButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context) => InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(AppDimens.radiusMedium),
       child: Container(
@@ -43,5 +42,4 @@ class SocialLoginButton extends StatelessWidget {
         ),
       ),
     );
-  }
 }

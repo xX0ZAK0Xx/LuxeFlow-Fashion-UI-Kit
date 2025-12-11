@@ -59,8 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _showPickerOptions() {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
-        return SafeArea(
+      builder: (BuildContext context) => SafeArea(
           child: Wrap(
             children: <Widget>[
               ListTile(
@@ -81,14 +80,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ],
           ),
-        );
-      },
+        ),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
         actions: [
@@ -115,15 +112,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       ValueListenableBuilder<String?>(
                         valueListenable: _profileImageNotifier,
-                        builder: (context, profileImagePath, _) {
-                          return CircleAvatar(
+                        builder: (context, profileImagePath, _) => CircleAvatar(
                             radius: 60,
                             backgroundColor: Colors.grey[200],
                             backgroundImage: profileImagePath != null
                                 ? FileImage(File(profileImagePath))
                                 : const NetworkImage('https://i.pravatar.cc/300') as ImageProvider,
-                          );
-                        },
+                          ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -217,5 +212,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-  }
 }

@@ -12,9 +12,7 @@ class GetCart implements UseCase<List<CartItemEntity>, NoParams> {
   GetCart(this.repository);
 
   @override
-  Future<Either<Failure, List<CartItemEntity>>> call(NoParams params) async {
-    return await repository.getCart();
-  }
+  Future<Either<Failure, List<CartItemEntity>>> call(NoParams params) async => repository.getCart();
 }
 
 class AddToCart implements UseCase<void, AddToCartParams> {
@@ -23,13 +21,11 @@ class AddToCart implements UseCase<void, AddToCartParams> {
   AddToCart(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(AddToCartParams params) async {
-    return await repository.addToCart(
+  Future<Either<Failure, void>> call(AddToCartParams params) async => repository.addToCart(
       params.product, 
       color: params.color, 
       size: params.size,
     );
-  }
 }
 
 class RemoveFromCart implements UseCase<void, ProductEntity> {
@@ -38,9 +34,7 @@ class RemoveFromCart implements UseCase<void, ProductEntity> {
   RemoveFromCart(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(ProductEntity params) async {
-    return await repository.removeFromCart(params);
-  }
+  Future<Either<Failure, void>> call(ProductEntity params) async => repository.removeFromCart(params);
 }
 
 class UpdateCartItem implements UseCase<void, UpdateCartItemParams> {
@@ -49,9 +43,7 @@ class UpdateCartItem implements UseCase<void, UpdateCartItemParams> {
   UpdateCartItem(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(UpdateCartItemParams params) async {
-    return await repository.updateCartItem(params.product, params.quantity);
-  }
+  Future<Either<Failure, void>> call(UpdateCartItemParams params) async => repository.updateCartItem(params.product, params.quantity);
 }
 
 class UpdateCartItemParams {

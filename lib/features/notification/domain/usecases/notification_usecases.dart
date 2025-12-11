@@ -10,9 +10,7 @@ class GetNotifications implements UseCase<List<NotificationEntity>, NoParams> {
   GetNotifications(this.repository);
 
   @override
-  Future<Either<Failure, List<NotificationEntity>>> call(NoParams params) async {
-    return await repository.getNotifications();
-  }
+  Future<Either<Failure, List<NotificationEntity>>> call(NoParams params) async => repository.getNotifications();
 }
 
 class MarkAllNotificationsAsRead implements UseCase<void, NoParams> {
@@ -21,9 +19,7 @@ class MarkAllNotificationsAsRead implements UseCase<void, NoParams> {
   MarkAllNotificationsAsRead(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(NoParams params) async {
-    return await repository.markAllAsRead();
-  }
+  Future<Either<Failure, void>> call(NoParams params) async => repository.markAllAsRead();
 }
 
 class MarkNotificationAsRead implements UseCase<void, String> {
@@ -32,7 +28,5 @@ class MarkNotificationAsRead implements UseCase<void, String> {
   MarkNotificationAsRead(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(String params) async {
-    return await repository.markAsRead(params);
-  }
+  Future<Either<Failure, void>> call(String params) async => repository.markAsRead(params);
 }

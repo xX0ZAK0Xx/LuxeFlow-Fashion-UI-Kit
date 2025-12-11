@@ -10,8 +10,7 @@ class CategoryPills extends StatelessWidget {
   const CategoryPills({super.key, required this.categories});
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       height: 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -27,10 +26,8 @@ class CategoryPills extends StatelessWidget {
         },
       ),
     );
-  }
 
-  Widget _buildPill(BuildContext context, CategoryEntity category) {
-    return GestureDetector(
+  Widget _buildPill(BuildContext context, CategoryEntity category) => GestureDetector(
       onTap: () {
         Navigator.push(
           context,
@@ -76,10 +73,8 @@ class CategoryPills extends StatelessWidget {
         ),
       ),
     );
-  }
 
-  Widget _buildViewAll(BuildContext context) {
-    return GestureDetector(
+  Widget _buildViewAll(BuildContext context) => GestureDetector(
       onTap: () {
          Navigator.push(context, MaterialPageRoute(builder: (_) => const CategoryListScreen()));
       },
@@ -97,5 +92,4 @@ class CategoryPills extends StatelessWidget {
         ),
       ),
     );
-  }
 }

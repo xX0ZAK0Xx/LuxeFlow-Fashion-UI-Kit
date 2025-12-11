@@ -13,7 +13,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> login(String email, String password) async {
     try {
       await localDataSource.login(email, password);
-      return Right(const UserEntity(id: '1', email: 'user@luxeflow.com', name: 'Luxe User'));
+      return const Right(UserEntity(id: '1', email: 'user@luxeflow.com', name: 'Luxe User'));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
@@ -25,12 +25,12 @@ class AuthRepositoryImpl implements AuthRepository {
      try {
       // Simulate successful registration returning the user
       await Future.delayed(const Duration(seconds: 1));
-       final newUser = const UserEntity(
+       const newUser = UserEntity(
         id: '1', 
         email: 'user@luxeflow.com', 
         name: 'Luxe User'
       );
-      return Right(newUser);
+      return const Right(newUser);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

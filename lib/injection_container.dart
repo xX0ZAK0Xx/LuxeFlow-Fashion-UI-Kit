@@ -40,106 +40,106 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // Features - Theme
-  sl.registerFactory(() => ThemeBloc(sharedPreferences: sl()));
+  sl..registerFactory(() => ThemeBloc(sharedPreferences: sl()))
 
   // Features - Auth
-  sl.registerFactory(() => AuthBloc(loginUser: sl()));
-  sl.registerLazySingleton(() => LoginUser(sl()));
-  sl.registerLazySingleton<AuthRepository>(
+  ..registerFactory(() => AuthBloc(loginUser: sl()))
+  ..registerLazySingleton(() => LoginUser(sl()))
+  ..registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(),
-  );
+  )
+  ..registerLazySingleton<AuthLocalDataSource>(
+    AuthLocalDataSourceImpl.new,
+  )
 
   // Features - Product
-  sl.registerFactory(
+  ..registerFactory(
     () => ProductBloc(
       getProducts: sl(),
       getCategories: sl(),
     ),
-  );
-  sl.registerLazySingleton(() => GetProducts(sl()));
-  sl.registerLazySingleton(() => GetCategories(sl()));
-  sl.registerLazySingleton<ProductRepository>(
+  )
+  ..registerLazySingleton(() => GetProducts(sl()))
+  ..registerLazySingleton(() => GetCategories(sl()))
+  ..registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<ProductLocalDataSource>(
-    () => ProductLocalDataSourceImpl(),
-  );
+  )
+  ..registerLazySingleton<ProductLocalDataSource>(
+    ProductLocalDataSourceImpl.new,
+  )
 
   // Features - Cart
-  sl.registerLazySingleton(
+  ..registerLazySingleton(
     () => CartBloc(
       getCart: sl(),
       addToCart: sl(),
       removeFromCart: sl(),
       updateCartItem: sl(),
     ),
-  );
-  sl.registerLazySingleton(() => GetCart(sl()));
-  sl.registerLazySingleton(() => AddToCart(sl()));
-  sl.registerLazySingleton(() => RemoveFromCart(sl()));
-  sl.registerLazySingleton(() => UpdateCartItem(sl()));
-  sl.registerLazySingleton<CartRepository>(
+  )
+  ..registerLazySingleton(() => GetCart(sl()))
+  ..registerLazySingleton(() => AddToCart(sl()))
+  ..registerLazySingleton(() => RemoveFromCart(sl()))
+  ..registerLazySingleton(() => UpdateCartItem(sl()))
+  ..registerLazySingleton<CartRepository>(
     () => CartRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<CartLocalDataSource>(
-    () => CartLocalDataSourceImpl(),
-  );
+  )
+  ..registerLazySingleton<CartLocalDataSource>(
+    CartLocalDataSourceImpl.new,
+  )
 
   // Features - Shipping
-  sl.registerFactory(
+  ..registerFactory(
     () => ShippingBloc(
       getAddresses: sl(),
       addAddress: sl(),
       deleteAddress: sl(),
     ),
-  );
-  sl.registerLazySingleton(() => GetShippingAddresses(sl()));
-  sl.registerLazySingleton(() => AddShippingAddress(sl()));
-  sl.registerLazySingleton(() => DeleteShippingAddress(sl()));
-  sl.registerLazySingleton<ShippingRepository>(
+  )
+  ..registerLazySingleton(() => GetShippingAddresses(sl()))
+  ..registerLazySingleton(() => AddShippingAddress(sl()))
+  ..registerLazySingleton(() => DeleteShippingAddress(sl()))
+  ..registerLazySingleton<ShippingRepository>(
     () => ShippingRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<ShippingLocalDataSource>(
-    () => ShippingLocalDataSourceImpl(),
-  );
+  )
+  ..registerLazySingleton<ShippingLocalDataSource>(
+    ShippingLocalDataSourceImpl.new,
+  )
 
   // Features - Payment
-  sl.registerFactory(
+  ..registerFactory(
     () => PaymentBloc(
       getMethods: sl(),
       addMethod: sl(),
       deleteMethod: sl(),
     ),
-  );
-  sl.registerLazySingleton(() => GetPaymentMethods(sl()));
-  sl.registerLazySingleton(() => AddPaymentMethod(sl()));
-  sl.registerLazySingleton(() => DeletePaymentMethod(sl()));
-  sl.registerLazySingleton<PaymentRepository>(
+  )
+  ..registerLazySingleton(() => GetPaymentMethods(sl()))
+  ..registerLazySingleton(() => AddPaymentMethod(sl()))
+  ..registerLazySingleton(() => DeletePaymentMethod(sl()))
+  ..registerLazySingleton<PaymentRepository>(
     () => PaymentRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<PaymentLocalDataSource>(
-    () => PaymentLocalDataSourceImpl(),
-  );
+  )
+  ..registerLazySingleton<PaymentLocalDataSource>(
+    PaymentLocalDataSourceImpl.new,
+  )
 
   // Features - Notification
-  sl.registerFactory(
+  ..registerFactory(
     () => NotificationBloc(
       getNotifications: sl(),
       markAllAsRead: sl(),
       markAsRead: sl(),
     ),
-  );
-  sl.registerLazySingleton(() => GetNotifications(sl()));
-  sl.registerLazySingleton(() => MarkAllNotificationsAsRead(sl()));
-  sl.registerLazySingleton(() => MarkNotificationAsRead(sl()));
-  sl.registerLazySingleton<NotificationRepository>(
+  )
+  ..registerLazySingleton(() => GetNotifications(sl()))
+  ..registerLazySingleton(() => MarkAllNotificationsAsRead(sl()))
+  ..registerLazySingleton(() => MarkNotificationAsRead(sl()))
+  ..registerLazySingleton<NotificationRepository>(
     () => NotificationRepositoryImpl(localDataSource: sl()),
-  );
-  sl.registerLazySingleton<NotificationLocalDataSource>(
-    () => NotificationLocalDataSourceImpl(),
+  )
+  ..registerLazySingleton<NotificationLocalDataSource>(
+    NotificationLocalDataSourceImpl.new,
   );
 
   // Core

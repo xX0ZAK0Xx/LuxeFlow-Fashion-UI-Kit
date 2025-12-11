@@ -21,13 +21,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Checkout')),
       body: ValueListenableBuilder<int>(
         valueListenable: _currentStepNotifier,
-        builder: (context, currentStep, _) {
-          return Stepper(
+        builder: (context, currentStep, _) => Stepper(
             type: StepperType.horizontal,
             currentStep: currentStep,
             onStepTapped: (index) {
@@ -36,9 +34,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 _currentStepNotifier.value = index;
               }
             },
-            controlsBuilder: (context, details) {
-              return const SizedBox.shrink(); // Hide default buttons, we use custom ones inside screens
-            },
+            controlsBuilder: (context, details) => const SizedBox.shrink(),
             steps: [
               Step(
                 title: const Text('Address'),
@@ -65,9 +61,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 state: currentStep == 1 ? StepState.editing : StepState.disabled, // Only active when step 1
               ),
             ],
-          );
-        },
+          ),
       ),
     );
-  }
 }

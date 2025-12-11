@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:luxeflow/core/constants/app_dimens.dart';
+import '../../../../core/constants/app_dimens.dart';
 import '../../../../core/widgets/custom_filter_chip.dart';
 import '../../../../core/widgets/image_carousel.dart';
 import '../../../../core/widgets/size_guide_modal.dart';
@@ -126,10 +126,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Row(
+                        const Row(
                           children: [
-                            const Icon(Icons.star, color: Colors.amber, size: 20),
-                            const Text(' 4.8 (120 reviews)', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Icon(Icons.star, color: Colors.amber, size: 20),
+                            Text(' 4.8 (120 reviews)', style: TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),
                         const SizedBox(height: 16),
@@ -154,10 +154,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           scrollDirection: Axis.horizontal,
                           child: ValueListenableBuilder<String>(
                             valueListenable: _selectedSizeNotifier,
-                            builder: (context, selectedSize, _) {
-                              return Row(
-                                children: ['S', 'M', 'L', 'XL'].map((size) {
-                                  return Padding(
+                            builder: (context, selectedSize, _) => Row(
+                                children: ['S', 'M', 'L', 'XL'].map((size) => Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: CustomFilterChip(
                                       label: size,
@@ -166,10 +164,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         _selectedSizeNotifier.value = size;
                                       },
                                     ),
-                                  );
-                                }).toList(),
-                              );
-                            },
+                                  )).toList(),
+                              ),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -179,10 +175,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         const SizedBox(height: 12),
                         ValueListenableBuilder<String>(
                           valueListenable: _selectedColorNotifier,
-                          builder: (context, selectedColor, _) {
-                            return Row(
-                              children: ['Black', 'Blue', 'Beige'].map((color) {
-                                return Padding(
+                          builder: (context, selectedColor, _) => Row(
+                              children: ['Black', 'Blue', 'Beige'].map((color) => Padding(
                                   padding: const EdgeInsets.only(right: 12.0),
                                   child: GestureDetector(
                                     onTap: () {
@@ -204,10 +198,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       ),
                                     ),
                                   ),
-                                );
-                              }).toList(),
-                            );
-                          },
+                                )).toList(),
+                            ),
                         ),
                         
                         const SizedBox(height: 16),
@@ -219,7 +211,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             "body": Style(
                               fontSize: FontSize(16.0),
                               color: Colors.grey[700],
-                              lineHeight: LineHeight(1.5),
+                              lineHeight: const LineHeight(1.5),
                               fontFamily: 'Roboto', // Or your app's font
                             ),
                             "strong": Style(fontWeight: FontWeight.bold, color: Colors.black),
@@ -232,12 +224,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         const SizedBox(height: 16),
                         Text('Reviews', style: Theme.of(context).textTheme.titleMedium),
                         // Mock Review Item
-                        ListTile(
+                        const ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: const CircleAvatar(child: Text('JD')),
-                          title: const Text('John Doe'),
-                          subtitle: const Text('Great quality and fits perfectly!'),
-                          trailing: const Icon(Icons.star, color: Colors.amber, size: 16),
+                          leading: CircleAvatar(child: Text('JD')),
+                          title: Text('John Doe'),
+                          subtitle: Text('Great quality and fits perfectly!'),
+                          trailing: Icon(Icons.star, color: Colors.amber, size: 16),
                         ),
                       ],
                     ),

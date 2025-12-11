@@ -42,17 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       extendBodyBehindAppBar: true, // Allow content to go behind status bar
       body: ValueListenableBuilder<int>(
         valueListenable: _currentIndexNotifier,
-        builder: (context, currentIndex, _) {
-          return IndexedStack(
+        builder: (context, currentIndex, _) => IndexedStack(
             index: currentIndex,
             children: _screens,
-          );
-        },
+          ),
       ),
       bottomNavigationBar: BlocBuilder<CartBloc, CartState>(
         builder: (context, cartState) {
@@ -62,8 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           return ValueListenableBuilder<int>(
             valueListenable: _currentIndexNotifier,
-            builder: (context, currentIndex, _) {
-              return CustomBottomNav(
+            builder: (context, currentIndex, _) => CustomBottomNav(
                 currentIndex: currentIndex,
                 cartCount: cartCount,
                 onTap: (index) {
@@ -72,13 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   _currentIndexNotifier.value = index;
                 },
-              );
-            },
+              ),
           );
         },
       ),
     );
-  }
 }
 
 
@@ -106,7 +100,6 @@ class HomeFeed extends StatelessWidget {
                 slivers: [
                   SliverAppBar(
                     expandedHeight: 320.0,
-                    floating: false,
                     pinned: true,
                     stretch: true,
                     backgroundColor: Colors.transparent,
@@ -259,8 +252,8 @@ class HomeFeed extends StatelessWidget {
                   ),
   
                   // Best Sellers Header
-                  SliverToBoxAdapter(
-                    child: const SectionHeader(title: 'Best Sellers'),
+                  const SliverToBoxAdapter(
+                    child: SectionHeader(title: 'Best Sellers'),
                   ),
                   
                   // Best Sellers Grid
@@ -319,8 +312,7 @@ class HomeFeed extends StatelessWidget {
     );
   }
 
-  Widget _buildShimmerLoading(BuildContext context) {
-    return SingleChildScrollView(
+  Widget _buildShimmerLoading(BuildContext context) => SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,5 +390,4 @@ class HomeFeed extends StatelessWidget {
         ],
       ),
     );
-  }
 }

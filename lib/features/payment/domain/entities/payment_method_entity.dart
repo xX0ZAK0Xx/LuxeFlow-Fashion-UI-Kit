@@ -30,8 +30,7 @@ class PaymentMethodEntity extends Equatable {
     String? cvv,
     String? cardType,
     bool? isDefault,
-  }) {
-    return PaymentMethodEntity(
+  }) => PaymentMethodEntity(
       id: id ?? this.id,
       cardHolderName: cardHolderName ?? this.cardHolderName,
       cardNumber: cardNumber ?? this.cardNumber,
@@ -40,5 +39,4 @@ class PaymentMethodEntity extends Equatable {
       cardType: cardType ?? this.cardType,
       isDefault: isDefault ?? this.isDefault,
     );
-  }
 }

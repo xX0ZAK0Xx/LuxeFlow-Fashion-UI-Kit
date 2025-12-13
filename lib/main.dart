@@ -10,8 +10,6 @@ import 'features/payment/presentation/blocs/payment_bloc.dart';
 import 'features/notification/presentation/blocs/notification_bloc.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/bloc/theme_bloc.dart';
-
-// import 'features/auth/presentation/pages/splash_screen.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -59,7 +57,6 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             debugShowCheckedModeBanner: false,
             home: const SplashScreen(),
-            // home: const HomeScreen(),
           ),
       ),
     );
